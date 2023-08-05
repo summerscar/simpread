@@ -19,6 +19,7 @@ export async function loader() {
       };
     })
     .sort((a, b) => b.create_at.getTime() - a.create_at.getTime());
+
   return postList;
 }
 

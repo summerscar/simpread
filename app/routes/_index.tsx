@@ -20,6 +20,9 @@ export default function Index() {
       }}
     >
       <h1>简悦 - 技术文章收集</h1>
+      <a href="/posts.rss" target="_blank">
+        <img width="15" height="15" src="./rss-feed-symbol.png" alt="rss" /> RSS
+      </a>
       <Posts inline />
     </div>
   );
