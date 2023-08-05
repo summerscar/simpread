@@ -23,6 +23,23 @@ export default function Index() {
       <a href="/posts.rss" target="_blank">
         <img width="15" height="15" src="./rss-feed-symbol.png" alt="rss" /> RSS
       </a>
+      <a
+        style={{ paddingLeft: "10px" }}
+        href="https://github.com/summerscar/simpread/tree/main/md"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img
+          style={{
+            transform: "scale(1.5)",
+          }}
+          width="15"
+          height="15"
+          src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+          alt="rss"
+        />{" "}
+        Github
+      </a>
       <Posts inline />
     </div>
   );
