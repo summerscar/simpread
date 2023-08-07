@@ -1,5 +1,6 @@
 import { Link, useLoaderData } from "@remix-run/react";
 import { getPostList } from "./posts[.]rss";
+import styles from "./posts.module.css";
 
 export async function loader() {
   const postList = await getPostList();
@@ -13,8 +14,13 @@ const Posts = ({ inline = false }: { inline?: Boolean }) => {
   const posts = (
     <ul>
       {list.map((post, index) => (
-        <li key={index} data-create_at={post.create_at}>
-          <Link to={"/posts/" + post.name} target="_self" rel="noreferrer">
+        <li className="mb-1" key={index} data-create_at={post.create_at}>
+          <Link
+            className="text-neutral-600 hover:text-gray-500 hover:shadow"
+            to={"/posts/" + post.name}
+            target="_self"
+            rel="noreferrer"
+          >
             {post.name}
           </Link>
         </li>

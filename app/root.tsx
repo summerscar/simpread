@@ -9,6 +9,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import globalStyles from "~/styles/global.css";
+import tailwindStyles from "./tailwind.css";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -20,6 +21,7 @@ export const links: LinksFunction = () => [
     rel: "stylesheet",
     href: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css",
   },
+  { rel: "stylesheet", href: tailwindStyles },
   { rel: "stylesheet", href: globalStyles },
 ];
 

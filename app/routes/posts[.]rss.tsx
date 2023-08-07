@@ -23,7 +23,7 @@ export const getPostList = async (slice?: number) => {
       };
     })
     .sort((a, b) => b.create_at.getTime() - a.create_at.getTime())
-    .slice(slice || 0);
+    .slice(0, slice ?? undefined);
   return postList;
 };
 
