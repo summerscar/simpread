@@ -1,9 +1,14 @@
+---
+title: RSC From Scratch. Part 1: Server Components
+date: 2023-07-04 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [github.com](https://github.com/reactwg/server-components/discussions/5)
 
 RSC From Scratch. Part 1: Server Components
 ===========================================
 
-In this technical deep dive, we'll implement a very simplified version of [React Server Components](https://github.com/reactjs/rfcs/blob/main/text/0188-server-components.md) (RSC) from scratch.  
+In this technical deep dive, we'll implement a very simplified version of [React Server Components](https://github.com/reactjs/rfcs/blob/main/text/0188-server-components.md) (RSC) from scratch.
 This deep dive will be published in several parts:
 
 *   **Part 1: Server Components** (this page)
@@ -15,12 +20,12 @@ Seriously, this is a deep dive!
 
 This deep dive doesn't explain the benefits of React Server Components, how to implement an app using RSC, or how to implement a framework using them. Instead, it walks you through the process of"inventing" them on your own from scratch.
 
-🔬 **This is a deep dive for people who like to learn new technologies by implementing them from scratch.**  
+🔬 **This is a deep dive for people who like to learn new technologies by implementing them from scratch.**
 It assumes some background in web programming and some familiarity with React.
 
 🚧 **This deep dive is not intended as an introduction to how to _use_ Server Components.** We are working to document Server Components on the React website. In the meantime, if your framework supports Server Components, please refer to its docs.
 
-😳 **For pedagogical reasons, our implementation will be significantly less efficient than the real one used by React.**  
+😳 **For pedagogical reasons, our implementation will be significantly less efficient than the real one used by React.**
 We will note future optimization opportunities in the text, but we will strongly prioritize conceptual clarity over efficiency.
 
 Let’s jump back in time...
@@ -192,7 +197,7 @@ Under the hood, JSX produces a tree of objects that look like this:
               type: 'footer',
               props: {
                 /* ...And so on... */
-              }              
+              }
             }
           ]
         }
@@ -318,7 +323,7 @@ if (jsx.$$typeof === Symbol.for("react.element")) {
   // ...
   html += "</" + jsx.type + ">";
   return html;
-} 
+}
 
 ```
 
@@ -337,7 +342,7 @@ if (jsx.$$typeof === Symbol.for("react.element")) {
     const Component = jsx.type;
     const props = jsx.props;
     const returnedJsx = Component(props);
-    return renderJSXToHTML(returnedJsx); 
+    return renderJSXToHTML(returnedJsx);
   } else throw new Error("Not implemented.");
 }
 
@@ -1255,7 +1260,7 @@ In the previous step, we've decoupled running components from generating HTML:
 *   First, `renderJSXToClientJSX` runs our components to produce client JSX.
 *   Then, React's `renderToString` turns that client JSX into HTML.
 
-Since these steps are independent, they don't have to be done in the same process or even on the same machine.  
+Since these steps are independent, they don't have to be done in the same process or even on the same machine.
 To demonstrate this, we're going split `server.js` into two files:
 
 *   [`server/rsc.js`](https://codesandbox.io/p/sandbox/agitated-swartz-4hs4v1?file=%2Fserver%2Frsc.js): This server will run our components. It always outputs JSX — no HTML. If our components were accessing a database, it would make sense to run this server close to the data center so that the latency is low.

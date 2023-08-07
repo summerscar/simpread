@@ -1,3 +1,8 @@
+---
+title: 一文带你了解什么是JavaScript 函数式编程？ - 掘金
+date: 2023-07-31 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [juejin.cn](https://juejin.cn/post/6844903908553261063?searchId=20230731110951CF3415FDA60CBAA69A4A)
 
 函数式编程在前端已经成为了一个非常热门的话题。在最近几年里，我们看到非常多的应用程序代码库里大量使用着函数式编程思想。
@@ -14,7 +19,7 @@ arcade复制代码`var string = 'functional programming is great';
 var result = string
   .split(' ')
   .map(v => v.slice(0, 1).toUpperCase() + v.slice(1))
-  .join(' ');` 
+  .join(' ');`
 ```
 
 上面的例子先用 split 把字符串转换数组，然后再通过 map 把各元素的首字母转换成大写，最后通过 join 把数组转换成字符串。 整个过程就是 `join(map(split(str)))`,体现了函数式编程的核心思想： **通过函数对数据进行转换**。
@@ -28,9 +33,9 @@ var result = string
 -----------
 
 *   命令式：我们通过编写一条又一条指令去让计算机执行一些动作，这其中一般都会涉及到很多繁杂的细节。命令式代码中频繁使用语句,来完成某个行为。比如 for、if、switch、throw 等这些语句。
-    
+
 *   声明式：我们通过写表达式的方式来声明我们想干什么，而不是通过一步一步的指示。表达式通常是某些函数调用的复合、一些值和操作符，用来计算出结果值。
-    
+
 
 ```
 arcade复制代码`//命令式
@@ -40,7 +45,7 @@ for(var i = 0; i < companies.length; i++){
 }
 
 //声明式
-var CEOs = companies.map(c => c.CEO);` 
+var CEOs = companies.map(c => c.CEO);`
 ```
 
 从上面的例子中，我们可以看到声明式的写法是一个表达式，无需关心如何进行计数器迭代，返回的数组如何收集，它指明的是做什么，而不是怎么做。**函数式编程的一个明显的好处就是这种声明式的代码**，对于无副作用的纯函数，我们完全可以不考虑函数内部是如何实现的，专注于编写业务代码。
@@ -65,7 +70,7 @@ function test1() {
 // 多次调用结果一样
 function test2(a) {
   return a + 1;
-}` 
+}`
 ```
 
 ### 透明引用
@@ -82,7 +87,7 @@ function test1() {
 // 函数内部使用的变量是显式传递进去的
 function test2(a, b) {
   return a + b;
-}` 
+}`
 ```
 
 ### 不可变变量
@@ -93,7 +98,7 @@ function test2(a, b) {
 arcade复制代码`var obj = Immutable({ a: 1 });
 var obj2 = obj.set('a', 2);
 console.log(obj);  // Immutable({ a: 1 })
-console.log(obj2); // Immutable({ a: 2 })` 
+console.log(obj2); // Immutable({ a: 2 })`
 ```
 
 ### 函数是一等公民
@@ -119,7 +124,7 @@ kotlin复制代码`// 简单的缓存工具
 // 匿名函数创造了一个闭包
 const cache = (function() {
   const store = {};
-  
+
   return {
     get(key) {
       return store[key];
@@ -131,7 +136,7 @@ const cache = (function() {
 }());
 console.log(cache) //{get: ƒ, set: ƒ}
 cache.set('a', 1);
-cache.get('a');  // 1` 
+cache.get('a');  // 1`
 ```
 
 上面例子是一个简单的缓存工具的实现，匿名函数创造了一个闭包，使得 store 对象 ，一直可以被引用，不会被回收。
@@ -171,7 +176,7 @@ var names = [];
 for (let i = 0; i < animals.length; i++) {
   names.push(animals[i].name);
 }
-console.log(names); //["Fluffykins", "Caro", "Hamilton", "Harold", "Ursula", "Jimmy"]` 
+console.log(names); //["Fluffykins", "Caro", "Hamilton", "Harold", "Ursula", "Jimmy"]`
 ```
 
 ```
@@ -185,7 +190,7 @@ var animals = [
   { name: "Jimmy", species: "fish" }
 ];
 var names = animals.map(x=>x.name);
-console.log(names); //["Fluffykins", "Caro", "Hamilton", "Harold", "Ursula", "Jimmy"]` 
+console.log(names); //["Fluffykins", "Caro", "Hamilton", "Harold", "Ursula", "Jimmy"]`
 ```
 
 #### filter
@@ -208,7 +213,7 @@ var dogs = [];
 for (var i = 0; i < animals.length; i++) {
   if (animals[i].species === "dog") dogs.push(animals[i]);
 }
-console.log(dogs);` 
+console.log(dogs);`
 ```
 
 ```
@@ -223,7 +228,7 @@ var animals = [
 ];
 var dogs = animals.filter(x => x.species === "dog");
 console.log(dogs); // {name: "Caro", species: "dog"}
-// { name: "Hamilton", species: "dog" }` 
+// { name: "Hamilton", species: "dog" }`
 ```
 
 #### reduce
@@ -239,14 +244,14 @@ let sum = 0;
 for (let i = 0; i < arr.length; i++) {
   sum = sum + arr[i];
 }
-console.log(sum);//25` 
+console.log(sum);//25`
 ```
 
 ```
 arcade复制代码`// 使用高阶函数
 const arr = [5, 7, 1, 8, 4];
 const sum = arr.reduce((accumulator, currentValue) => accumulator + currentValue,0);
-console.log(sum)//25` 
+console.log(sum)//25`
 ```
 
 我们可以通过下图，形象生动展示三者的区别：
@@ -270,7 +275,7 @@ var add = function(x) {
   };
 };
 var increment = add(1);
-increment(2);// 3` 
+increment(2);// 3`
 ```
 
 这里我们定义了一个 add 函数，它接受一个参数并返回一个新的函数。调用 add 之后，返回的函数就通过闭包的方式记住了 add 的第一个参数。那么，我们如何来实现一个简易的柯里化函数呢？
@@ -296,7 +301,7 @@ var c = curryIt(add);
 var c1 = c(1);
 var c2 = c1(2);
 var c3 = c2(3);
-console.log(c3); //[1, 2, 3]` 
+console.log(c3); //[1, 2, 3]`
 ```
 
 由此我们可以看出，柯里化是一种“预加载”函数的方法，通过传递较少的参数，得到一个已经记住了这些参数的新函数，某种意义上讲，这是一种对参数的“缓存”，是一种非常高效的编写函数的方法！
@@ -317,7 +322,7 @@ var compose = function(f, g) {
 var compose = (f, g) => (x => f(g(x)));
 var add1 = x => x + 1;
 var mul5 = x => x * 5;
-compose(mul5, add1)(2);// =>15` 
+compose(mul5, add1)(2);// =>15`
 ```
 
 **给大家推荐一个好用的BUG监控工具[Fundebug](https://link.juejin.cn?target=https%3A%2F%2Fwww.fundebug.com%2F%3Futm_source%3Dliao "https://www.fundebug.com/?utm_source=liao")，欢迎免费试用！**

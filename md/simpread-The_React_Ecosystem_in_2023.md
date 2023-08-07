@@ -1,3 +1,8 @@
+---
+title: The_React_Ecosystem_in_2023
+date: 2023-07-31 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [www.builder.io](https://www.builder.io/blog/react-js-in-2023)
 
 > Drag and drop with your components, right within your existing site or app. Build and optimize digita......
@@ -196,12 +201,12 @@ export default function App() {
     <form onSubmit={handleSubmit(onSubmit)}>
       {/* register your input into the hook by invoking the "register" function */}
       <input {...register("firstName")} />
-      
+
       {/* include validation with required or other standard HTML validation rules */}
       <input {...register("lastName", { required: true })} />
       {/* errors will return when field validation fails  */}
       {errors.lastName && <span>This field is required</span>}
-      
+
       <button>Submit</button>
     </form>
   );
@@ -432,7 +437,7 @@ Here is an example of what the integration looks like:
 ```
 import { Builder, BuilderComponent, builder } from '@builder.io/react'
 
-// Dynamically render compositions of your components 
+// Dynamically render compositions of your components
 // https://www.builder.io/c/docs/quickstart
 export default function MyPage({ builderJson }) {
   return <>

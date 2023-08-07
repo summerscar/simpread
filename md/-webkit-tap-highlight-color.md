@@ -1,3 +1,8 @@
+---
+title: -webkit-tap-highlight-color
+date: 2023-07-04 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-tap-highlight-color)
 
 **Non-standard:** This feature is non-standard and is not on a standards track. Do not use it on production sites facing the Web: it will not work for every user. There may also be large incompatibilities between implementations and the behavior may change in the future.

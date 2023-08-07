@@ -1,3 +1,8 @@
+---
+title: 深入分析 Vite 的实现，原来这么简单 - 掘金
+date: 2023-07-04 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [juejin.cn](https://juejin.cn/post/7161672525666058276)
 
 *   极速的服务启动，使用原生的 ESM 文件，无需打包。
@@ -31,7 +36,7 @@ kotlin复制代码`npm init vue@3
 
 npm install
 
-npm run dev` 
+npm run dev`
 ```
 
 然后从 github 把 vite 源码下载下来，目的是方便源码的分享。还有一个目的是为源码调试做准备。调测教程可看[这里](https://juejin.cn/book/7070324244772716556/section/7159194044663332872 "https://juejin.cn/book/7070324244772716556/section/7159194044663332872")。由于 vite 现在有多个版本，本文分析的源码都以当前最新源码为准。
@@ -53,7 +58,7 @@ npm run dev 做了什么？
 找到 vite 中的源代码，vite 首先通过 `cac` 作为简单的参数解析器，来对我们运行的命令参数进行解析。`cac`是一个用于构建 CLI 应用程序的 JavaScript 库。
 
 ```
-ini复制代码`const cli = cac('vite');` 
+ini复制代码`const cli = cac('vite');`
 ```
 
 `cac`这里简单在插一嘴，非常的实用，具有：
@@ -109,9 +114,9 @@ vite 利用 `cac`生成了很多命令的入口，根据不同的命令行命令
 预构建过程其实有两个目的：
 
 *   CommonJS 和 UMD 兼容性: 开发阶段中，Vite 的开发服务器将所有代码视为原生 ES 模块。因此，Vite 必须先将作为 CommonJS 或 UMD 发布的依赖项转换为 ESM。
-    
+
 *   性能： Vite 将有许多内部模块的 ESM 依赖关系转换为单个模块，以提高后续页面加载性能。
-    
+
 
 接着我们在浏览器访问启动的服务。
 
@@ -135,7 +140,7 @@ xml复制代码`<!DOCTYPE html>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
-</html>` 
+</html>`
 ```
 
 这里有两个`script type="module"`第一个是 vite 给我们添加上的，我们后面再讲，第二个是我们添加的。
@@ -147,7 +152,7 @@ xml复制代码`<!DOCTYPE html>
 ```
 python复制代码`<script type="module">
   import xxx from '/src/main.js‘
-</script>` 
+</script>`
 ```
 
 浏览器依然会发起 HTTP 请求，请求 HTTP Server 托管的脚本。接下往下，浏览器发现请求，请求`main.js`。
@@ -170,7 +175,7 @@ vite 是怎么实现的了？
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6b0b954bed424a47b67d83b7317e20df~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp)
 
 ```
-python复制代码`'import { createApp } from 'vue'\nimport App from './App.vue'\nimport router from './router'\n\nimport './assets/main.css'\n\nconst app = createApp(App)\n\napp.use(router)\n\napp.mount('#app')\n'` 
+python复制代码`'import { createApp } from 'vue'\nimport App from './App.vue'\nimport router from './router'\n\nimport './assets/main.css'\n\nconst app = createApp(App)\n\napp.use(router)\n\napp.mount('#app')\n'`
 ```
 
 接着对请求的内容通过 `es-module-lexer`和`magic-string`这两个库对模块的路径进行重写。
@@ -182,7 +187,7 @@ magic-string：字符替换
 也就将 import 直接导入的模块进行了转义。也就是预构建的缓存`node_modules/.vite`中。
 
 ```
-bash复制代码`'import { createApp } from '/node_modules/.vite/deps/vue.js?v=19dbb026'\nimport App from '/src/App.vue'\nimport router from '/src/router/index.js'\n\nimport '/src/assets/main.css'\n\nconst app = createApp(App)\n\napp.use(router)\n\napp.mount('#app')\n'` 
+bash复制代码`'import { createApp } from '/node_modules/.vite/deps/vue.js?v=19dbb026'\nimport App from '/src/App.vue'\nimport router from '/src/router/index.js'\n\nimport '/src/assets/main.css'\n\nconst app = createApp(App)\n\napp.use(router)\n\napp.mount('#app')\n'`
 ```
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d0c2deea0d8f4e78bd6b4494fd792215~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp)
@@ -193,7 +198,7 @@ bash复制代码`'import { createApp } from '/node_modules/.vite/deps/vue.js?v=1
 arduino复制代码`'/node_modules/.vite/deps/vue.js?v=19dbb026'
 '/src/App.vue'
 '/src/router/index.js'
-'/src/assets/main.css'` 
+'/src/assets/main.css'`
 ```
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b098d8e8f01c4b40ae1720a1fdd89190~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp)

@@ -1,6 +1,11 @@
+---
+title: Cron job editor multiple cron jobs, calendar view, AWS & Vercel cron support | CronTool
+date: 2023-07-04 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [tool.crontap.com](https://tool.crontap.com/cronjob-debugger?utm_source=bestxtools.com)
 
-[**Cron**Tool  
+[**Cron**Tool
 Cron expression editor & debugger](/cronjob-debugger)
 
 *   [Cron editor](/cronjob-debugger)
@@ -44,7 +49,7 @@ Become a cron expert and enable a world of possibilities. Cron is a tool for sch
 
 ### **Difference between crontab syntax and cron expressions**
 
-**Crontab** syntax refers to the syntax used in crontab files, found across UNIX systems and more.  
+**Crontab** syntax refers to the syntax used in crontab files, found across UNIX systems and more.
 **Cron expressions** are a superset of crontab syntax and support additional values for seconds, years as well as special wildcards.
 
 ### **Cron glossary**
@@ -55,13 +60,13 @@ Become a cron expert and enable a world of possibilities. Cron is a tool for sch
 
 **Cron job** or **cron schedule**: is a specific set of execution instructions specifying day, time and command to execute. crontab can have multiple execution statements.
 
-**Cron expression**: a more general term for cron job. You can think of it as a superset of a cron job. It supports the same syntax, but cron expressions can sometimes have extended capabilities like values for seconds, year and special wildcards such as "?".  
+**Cron expression**: a more general term for cron job. You can think of it as a superset of a cron job. It supports the same syntax, but cron expressions can sometimes have extended capabilities like values for seconds, year and special wildcards such as "?".
 Cron expressions are used in many other systems, including Windows Task Scheduler, Quartz, and more.
 
 Use cron to schedule API calls
 ------------------------------
 
-If you are anything like us, you have to repeatedly schedule API calls in order to send emails, generate reports and schedule maintenance jobs.  
+If you are anything like us, you have to repeatedly schedule API calls in order to send emails, generate reports and schedule maintenance jobs.
 With a few clicks you can start scheduling API calls and never worry about this again.
 
 [Read more](https://crontap.com)
@@ -99,49 +104,49 @@ Cron wildcards and ranges are a powerful way to schedule tasks. Learn how to use
 
 The following values can be used in all fields. Day fields can have special values (see below).
 
-*****  
+*****
 _Asterisk means all values of that field._
 
-**number**  
+**number**
 _Anumber within the allowed range is supported by all fields. Allowed range for each field varies and is documented above._
 
-**range as {lower}-{higher}**  
-_A range means a series of values between the lower (left) and higher (right) boundaries. Ranges are inclusive._  
+**range as {lower}-{higher}**
+_A range means a series of values between the lower (left) and higher (right) boundaries. Ranges are inclusive._
 For example:
 
-`0-4 => 0,1,2,3,4  
+`0-4 => 0,1,2,3,4
 0-1 => 0,1`
 
-**steps as {range | number}/{number}**  
-_Steps can be used with ranges or the asterisk character (*). When they are used with ranges they specify the number of values to skip through the end of the range. They are defined with a / character after the range, followed by a number_  
+**steps as {range | number}/{number}**
+_Steps can be used with ranges or the asterisk character (*). When they are used with ranges they specify the number of values to skip through the end of the range. They are defined with a / character after the range, followed by a number_
 For example (for hour):
 
-`0/2 => 0,2,4,6,8...22  
-*/2 => (same as 0/2)  
-10/3 => 10,13,16,19,22  
-9/5 => 9,14,19  
-1-10/5 => 1,6  
+`0/2 => 0,2,4,6,8...22
+*/2 => (same as 0/2)
+10/3 => 10,13,16,19,22
+9/5 => 9,14,19
+1-10/5 => 1,6
 `
 
-**multiple values separated by comma as {value1},{value2}...**  
-_The comma is used to separated multiple numbers, ranges and steps. This can be used in all fields but some fields have restrictions when special values are used. They can also be mixed and matched._  
+**multiple values separated by comma as {value1},{value2}...**
+_The comma is used to separated multiple numbers, ranges and steps. This can be used in all fields but some fields have restrictions when special values are used. They can also be mixed and matched._
 For example (for hour):
 
-`1,2 => 1,2  
-1-3,5-8 => 1,2,3,5,6,7,8  
-1,2,5-8 => 1,2,5,6,7,8  
+`1,2 => 1,2
+1-3,5-8 => 1,2,3,5,6,7,8
+1,2,5-8 => 1,2,5,6,7,8
 1-5/2,10-12,15 => 1,3,5,10,11,12,15`
 
 ### Day fields values
 
-Day fields are the most peculiar among all other time unit fields - they are the most unpredictable.  
+Day fields are the most peculiar among all other time unit fields - they are the most unpredictable.
 For example., Jan is always first of month. However, Monday is not always first of month. Because of this, day fields have special values to cover edge cases.
 
 **day of month**
 
 **L** _means the last day of month. It matches the last day of month in the given time._
 
-**{day number}W** _means the week day (business day) closest to given day within the given month._  
+**{day number}W** _means the week day (business day) closest to given day within the given month._
 For example: 3W => Weekday closest to 3rd of month. If 3rd if Sun then it matches 4th. If 3rd is Sat, it matches 2nd.
 
 **LW** _means last week day of month_
@@ -150,29 +155,29 @@ For example: 3W => Weekday closest to 3rd of month. If 3rd if Sun then it matche
 
 **L** _means the last day of the week. When used by itself, it always means Saturday._
 
-**day_of_weekL** _means the last day of week of that type._  
+**day_of_weekL** _means the last day of week of that type._
 For example 1L means the last Monday of the month.
 
-**weekday#day_of_month** _nth day of month. Number before # indicates weekday (sun-sat) and number after # indicates day of month._  
-  
-For example*:  
-`1#2 => second monday  
-2#2 => second tuesday  
-3#2 => second wednesday`  
+**weekday#day_of_month** _nth day of month. Number before # indicates weekday (sun-sat) and number after # indicates day of month._
+
+For example*:
+`1#2 => second monday
+2#2 => second tuesday
+3#2 => second wednesday`
 * Support for these values might be limited
 
 L, LW, W and # are not supported in all cron implementations. Please check your implementation before using them. Vixie cron does not support these values (found on many linux distros by default). You can check your support by running `man 5 crontab` in your terminal.
 
 ### Aliases
 
-For some fields, values can be specified using an alias. For example day of week and day of the month allows values to be specified using aliases instead of numbers.  
-Aliases are case insensitive.  
+For some fields, values can be specified using an alias. For example day of week and day of the month allows values to be specified using aliases instead of numbers.
+Aliases are case insensitive.
 Aliases for Month are: jan-dec and aliases for day of week are: sun-sat
 
 Examples
 
-`0 13 * * * => every day at 1 PM.  
-0 22 * * 6L => last Friday of every month at 10 PM.  
+`0 13 * * * => every day at 1 PM.
+0 22 * * 6L => last Friday of every month at 10 PM.
 0 10 * * MON-FRI => Monday through Friday at 10 AM.`[Content Source](https://github.com/datasert/cronjs)
 
 Cron frequently asked questions
@@ -257,25 +262,25 @@ QuestionHow can I execute a cron job twice daily at midnight and 13:30?
 This tool is part of the Apihustle suite - a collection of tools to test, improve and get to know your API inside and out.
 
 *   Clobbr logo
-    
+
     ### Clobbr
-    
+
     The app & CLI tool to test API endpoint speed.
-    
+
     [Visit](https://clobbr.app)
 *   Crontap logo
-    
+
     ### Crontap
-    
+
     Schedule recurring API calls using cron syntax.
-    
+
     [Visit](https://crontap.com)
 *   CronTool logo
-    
+
     ### CronTool
-    
+
     Debug multiple cron expressions on a calendar.
-    
+
     [Visit](https://tool.crontap.com)
 
 * * *

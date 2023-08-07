@@ -1,3 +1,8 @@
+---
+title: 6 best package managers for Windows and beyond - LogRocket Blog
+date: 2023-07-31 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [blog.logrocket.com](https://blog.logrocket.com/6-best-package-managers-windows-beyond/)
 
 The first time I turn on a new computer or boot up my PC after reinstalling Windows, I’m faced with the mammoth task of finding and reinstalling all the software that I like. This list is pretty long, so finding and installing everything can take some time.
@@ -74,7 +79,7 @@ The package specification is also largely compatible with the much-used Nuget pa
 Over 200k developers use LogRocket to create better digital experiences
 -----------------------------------------------------------------------
 
-![](https://blog.logrocket.com/wp-content/uploads/2022/08/rocket-button-icon.png)](https://lp.logrocket.com/blg/learn-more) 
+![](https://blog.logrocket.com/wp-content/uploads/2022/08/rocket-button-icon.png)](https://lp.logrocket.com/blg/learn-more)
 
 * * *
 

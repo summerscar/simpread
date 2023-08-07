@@ -1,17 +1,22 @@
+---
+title:【OpenAPI】APIスキーマから勝手に型がつくaxiosを作って幸せになる【openapi-typescript】
+date: 2023-07-21 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [zenn.dev](https://zenn.dev/sum0/articles/8e903ed05ba681)
 
 [](#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB)はじめに
 ---------------------------------------------
 
-  
-axiosの型付けはどうやらそれなりに頭を悩ませる課題のようです。  
+
+axiosの型付けはどうやらそれなりに頭を悩ませる課題のようです。
 実際にuhyo氏のTwitterでのTypeScriptコミュニティにて以下のような質問がありました。
 
 [https://twitter.com/renoa_ts/status/1501542216162242563?s=20&t=ECJWXFDFB8yF1zpzofWRMw](https://twitter.com/renoa_ts/status/1501542216162242563?s=20&t=ECJWXFDFB8yF1zpzofWRMw)
 
-私もaxiosの型付けに悩まされた一人です。  
-最近それなりに幸せに型付けできる方法が整理できたので、自身の備忘録も兼ねてまとめます。  
-前提として、openapiファイルが用意されていることとします。  
+私もaxiosの型付けに悩まされた一人です。
+最近それなりに幸せに型付けできる方法が整理できたので、自身の備忘録も兼ねてまとめます。
+前提として、openapiファイルが用意されていることとします。
 コード例は下記レポジトリに配置しております。
 
 [https://github.com/mymactive/openapi-typescript-example](https://github.com/mymactive/openapi-typescript-example)
@@ -19,32 +24,32 @@ axiosの型付けはどうやらそれなりに頭を悩ませる課題のよう
 [](#%E5%B9%B8%E3%81%9B%E3%81%AB%E3%81%AA%E3%82%8B%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B)幸せになるとは何か
 -----------------------------------------------------------------------------------------------
 
-  
+
 結論から言うと次のような型の補完が効き、かつ型安全なaxiosの[request API](https://axios-http.com/docs/api_intro)のカスタムAPIを作る事です。
 
-![URLパスがインテリセンスに表示される](https://res.cloudinary.com/zenn/image/fetch/s--B7rRgDvJ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_1200/https://storage.googleapis.com/zenn-user-upload/deployed-images/798f5a69cec96802504fa045.png%3Fsha%3Df02f499afa4f5fa628a0d900baa323f00356bedf)  
-URLパスの補完が効いていて、  
-![HTTPメソッドがインテリセンスに表示される](https://res.cloudinary.com/zenn/image/fetch/s--NdrmF9lB--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_1200/https://storage.googleapis.com/zenn-user-upload/deployed-images/1562b298d404aed94453ed08.png%3Fsha%3Dbc92cad71f1be0e7ba55f7bf130a7d145cf87edd)  
-実装されているHTTPメソッドの補完も効いており、  
-![paramsがインテリセンスに表示される](https://res.cloudinary.com/zenn/image/fetch/s--dSINmRVT--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_1200/https://storage.googleapis.com/zenn-user-upload/deployed-images/bacaac216a9edb6d74d1b30f.png%3Fsha%3Df180b6877ecd8da1c8f89a55cc099936c71fe8f5)  
-パラメータの型も補完され、  
+![URLパスがインテリセンスに表示される](https://res.cloudinary.com/zenn/image/fetch/s--B7rRgDvJ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_1200/https://storage.googleapis.com/zenn-user-upload/deployed-images/798f5a69cec96802504fa045.png%3Fsha%3Df02f499afa4f5fa628a0d900baa323f00356bedf)
+URLパスの補完が効いていて、
+![HTTPメソッドがインテリセンスに表示される](https://res.cloudinary.com/zenn/image/fetch/s--NdrmF9lB--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_1200/https://storage.googleapis.com/zenn-user-upload/deployed-images/1562b298d404aed94453ed08.png%3Fsha%3Dbc92cad71f1be0e7ba55f7bf130a7d145cf87edd)
+実装されているHTTPメソッドの補完も効いており、
+![paramsがインテリセンスに表示される](https://res.cloudinary.com/zenn/image/fetch/s--dSINmRVT--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_1200/https://storage.googleapis.com/zenn-user-upload/deployed-images/bacaac216a9edb6d74d1b30f.png%3Fsha%3Df180b6877ecd8da1c8f89a55cc099936c71fe8f5)
+パラメータの型も補完され、
 ![レスポンスの型が手に入る](https://res.cloudinary.com/zenn/image/fetch/s--CN4QHUQx--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_1200/https://storage.googleapis.com/zenn-user-upload/deployed-images/0785767b9142a44f149da33f.png%3Fsha%3Dd7e67d5ec394397ef219e9b36f407a244edc60c9)
 
-レスポンスの型も手に入る[request API](https://axios-http.com/docs/api_intro)です。  
+レスポンスの型も手に入る[request API](https://axios-http.com/docs/api_intro)です。
 見た目上は、request APIですので、[axiosのドキュメント](https://axios-http.com/)が流用できるのも美味しいです。
 
 [](#%E3%81%AA%E3%81%9C%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%AE%E3%81%8B)なぜできるのか
 ---------------------------------------------------------------------------
 
-  
-これが実現できるのは、openapiファイルから型を自動生成する[openapi-typescript](https://github.com/drwpow/openapi-typescript)のおかげです。  
+
+これが実現できるのは、openapiファイルから型を自動生成する[openapi-typescript](https://github.com/drwpow/openapi-typescript)のおかげです。
 執筆時点（2022/03)ではバージョン5.2.0であり、次のプロジェクトゴールの言葉から熱意を感じます。
 
 > Support converting any OpenAPI 3.0 or 2.0 (Swagger) schema to TypeScript types, no matter how complicated
 
-しかし私がopenapi-typescriptを推すのはプロジェクトの熱量だけではありません。  
-openapi-typescriptで最も特筆すべきことは、**URLパスとHTTPメソッドからAPIの情報を全て導けるような型が生成される**点です。  
-Web APIはURLパスとHTTPメソッドのペアで一意的に決まるのだからURLパスとHTTPメソッドからAPIの情報が導けるのは当然と言えば当然です。  
+しかし私がopenapi-typescriptを推すのはプロジェクトの熱量だけではありません。
+openapi-typescriptで最も特筆すべきことは、**URLパスとHTTPメソッドからAPIの情報を全て導けるような型が生成される**点です。
+Web APIはURLパスとHTTPメソッドのペアで一意的に決まるのだからURLパスとHTTPメソッドからAPIの情報が導けるのは当然と言えば当然です。
 当然なのですが、URLパスとHTTPメソッドからAPI情報を導くという原則を型の情報として落とし込むのはどうやら大変な労力が必要なようでopenapi-typescript以外ではなかなか実現できてないようです。
 
 [](#%E5%AE%9F%E8%B7%B5)実践
@@ -52,17 +57,17 @@ Web APIはURLパスとHTTPメソッドのペアで一意的に決まるのだか
 
 ### [](#%E6%BA%96%E5%82%99)準備
 
-実際にaxiosの[request API](https://axios-http.com/docs/api_intro)を作っていきます。  
-コードは[こちら](https://github.com/mymactive/openapi-typescript-example)で公開しております。  
+実際にaxiosの[request API](https://axios-http.com/docs/api_intro)を作っていきます。
+コードは[こちら](https://github.com/mymactive/openapi-typescript-example)で公開しております。
 今回利用したopenapiファイルは[Swagger Editor](https://editor.swagger.io/)のデフォルトを利用しております。
 
 ### [](#api%E3%82%B9%E3%82%AD%E3%83%BC%E3%83%9E%E3%82%92%E7%94%9F%E6%88%90%E3%81%99%E3%82%8B)APIスキーマを生成する
 
-適当なopenapiファイルを用意したとします。  
+適当なopenapiファイルを用意したとします。
 [openapi-typescript](https://github.com/drwpow/openapi-typescript)のUsageに則り、次のコマンドを実行します。
 
 ```
-npx openapi-typescript schema.yaml --output schema.ts 
+npx openapi-typescript schema.yaml --output schema.ts
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
@@ -87,21 +92,21 @@ export interface paths {
     get: operations["findPetsByStatus"];
   };
   (中略)
-} 
+}
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
 
-URLパスとHTTPメソッドからAPI情報が導けています。  
+URLパスとHTTPメソッドからAPI情報が導けています。
 これが後に大変役に立ってくれます。
 
 ### [](#%E5%9E%8B%E3%81%AE%E6%8A%BD%E5%87%BA)型の抽出
 
-  
-openapiファイルから型の情報は生成できました。  
-ですが、この状態では使いづらいので型を抽出するヘルパーを用意します。  
-ここでもAPIの原則を使います。  
-つまりURLパスとHTTPメソッドを指定すると、型の情報が抽出できるようにします。  
+
+openapiファイルから型の情報は生成できました。
+ですが、この状態では使いづらいので型を抽出するヘルパーを用意します。
+ここでもAPIの原則を使います。
+つまりURLパスとHTTPメソッドを指定すると、型の情報が抽出できるようにします。
 結果は次のファイルになります。
 
 schemaHelper.ts
@@ -130,16 +135,16 @@ export type RequestData<
 export type ResponseData<
   Path extends UrlPaths,
   Method extends HttpMethods
-> = Get<paths, `${Path}.${Method}.responses.200.content.application/json`>; 
+> = Get<paths, `${Path}.${Method}.responses.200.content.application/json`>;
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
 
-改めて個々に解説します。  
+改めて個々に解説します。
 まずはschema.tsからURLパスを抽出します。
 
 ```
-export type UrlPaths = keyof paths; 
+export type UrlPaths = keyof paths;
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
@@ -150,16 +155,16 @@ export type UrlPaths = keyof paths;
 export type HttpMethods = keyof UnionToIntersection<paths[keyof paths]>;
 
 export type HttpMethodsFilteredByPath<Path extends UrlPaths> = HttpMethods &
-  keyof UnionToIntersection<paths[Path]>; 
+  keyof UnionToIntersection<paths[Path]>;
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
 
-ここでHTTPメソッドは2つ定義してます。  
-後者のHTTPメソッドは、URLパスが決まれば実装されているHTTPメソッドは絞られることを反映したものです。  
-HTTPメソッドを定義する際に`UnionToIntersection<T>`という[type-fest](https://github.com/sindresorhus/type-fest)のユーティリティを使っています。  
-TypeScriptで込み入った型操作をチームメンバーに共有するのは課題です。  
-その点type-festはドキュメントがあるので、メンバーへの共有が楽に済み、メンテナンスもされているので安全です。  
+ここでHTTPメソッドは2つ定義してます。
+後者のHTTPメソッドは、URLパスが決まれば実装されているHTTPメソッドは絞られることを反映したものです。
+HTTPメソッドを定義する際に`UnionToIntersection<T>`という[type-fest](https://github.com/sindresorhus/type-fest)のユーティリティを使っています。
+TypeScriptで込み入った型操作をチームメンバーに共有するのは課題です。
+その点type-festはドキュメントがあるので、メンバーへの共有が楽に済み、メンテナンスもされているので安全です。
 型付けで頑張る必要があるときは、type-festのユーティリティを組み合わせて作ることは非常におすすめです。
 
 次にリクエストのパラメータと、データを用意します。
@@ -173,19 +178,19 @@ export type RequestParameters<
 export type RequestData<
   Path extends UrlPaths,
   Method extends HttpMethods
-> = Get<paths, `${Path}.${Method}.requestBody.content.application/json`>; 
+> = Get<paths, `${Path}.${Method}.requestBody.content.application/json`>;
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
 
-ここでもtype-festが大変役に立ちます。  
+ここでもtype-festが大変役に立ちます。
 最後にレスポンスの型を抽出します。
 
 ```
 export type ResponseData<
   Path extends UrlPaths,
   Method extends HttpMethods
-> = Get<paths, `${Path}.${Method}.responses.200.content.application/json`>; 
+> = Get<paths, `${Path}.${Method}.responses.200.content.application/json`>;
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
@@ -221,13 +226,13 @@ export function request<
     AxiosResponse<schemaHelper.ResponseData<Path, Method>>,
     AxiosConfigWrapper<Path, Method>["data"]
   >(config);
-} 
+}
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
 
-個々に解説していきます。  
-[request API](https://axios-http.com/docs/api_intro)はconfigを引数に取るので、まずはconfigを型付けします。  
+個々に解説していきます。
+[request API](https://axios-http.com/docs/api_intro)はconfigを引数に取るので、まずはconfigを型付けします。
 ここでもURLパスとHTTPメソッドからAPI情報は決まるという原則を適用します。
 
 ```
@@ -239,7 +244,7 @@ export type AxiosConfigWrapper<
   method: Method & schemaHelper.HttpMethodsFilteredByPath<Path>;
   params?: schemaHelper.RequestParameters<Path, Method>;
   data?: schemaHelper.RequestData<Path, Method>;
-}; 
+};
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
@@ -256,12 +261,12 @@ export function request<
     AxiosResponse<schemaHelper.ResponseData<Path, Method>>,
     AxiosConfigWrapper<Path, Method>["data"]
   >(config);
-} 
+}
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
 
-これで完成です。  
+これで完成です。
 実際にコードを触ると、TypeScriptが強力な型推論を提供してくれることを感じられます。
 
 [](#axios%E3%81%AE%E5%85%83%E6%9D%A5%E3%81%AE%E5%9E%8B%E4%BB%98%E3%81%91%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)axiosの元来の型付けについて
@@ -270,34 +275,34 @@ export function request<
 ここまで駆け足で説明したので、axios本来の型付けは何であったかを確認します。
 
 ```
-request<T = any, R = AxiosResponse<T>, D = any>(config: AxiosRequestConfig<D>): Promise<R>; 
+request<T = any, R = AxiosResponse<T>, D = any>(config: AxiosRequestConfig<D>): Promise<R>;
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
 
-これは[request API](https://axios-http.com/docs/api_intro)のaxios公式の型定義です。  
-`T`はレスポンスのデータ型、`D`はaxios configのリクエストのデータ型を表しています。  
-axiosは元々URLパスとHTTPメソッドではなく、リクエストとレスポンスのデータ型を直接参照しています。  
-これは汎用性のあるライブラリとしては仕方がないのですが、APIはレスポンスの型とリクエストの型だけでは特定できません。  
-例えば店舗の情報を取得するAPIがあるとして、店舗IDで検索するAPIと店舗名で検索するAPIはレスポンスの型が同じですが違うAPIであることが多々あります。  
-APIが特定できないということは、openapiファイルにどのようなAPIが定義されているのかがaxiosは知らないことを意味します。  
-では、何のAPIが定義されているのかをaxiosに教える役目はこのままでは人の手です。  
-つまりaxiosを利用するたびにopenapiファイルを見て、リクエストとレスポンスの型を埋めることになります。  
-これはO(n)の実装コストと、ヒューマンエラーを抱えることになる明確な課題です。  
-この課題を解決するために、openapiファイルに定義されたAPIを全て知るaxiosを作るというのは自然な問題です。  
-さて再三繰り返してきましたが、APIはURLパスとHTTPメソッドのペアで特定できます。  
-一方で、APIを特定するのに最も自然な情報はURLパスとHTTPメソッドでしょう。  
-ですので、この物知りなaxiosを作成するという問題は「openapiファイルに定義されたURLパスとHTTPメソッドを型情報として持つaxiosであり、このペアが指定されるとレスポンスの型等の付随情報を推論できるようなaxiosを作る」ことで解決されます。  
-これが上述したカスタムAPIの作成にてURLパスとHTTPメソッドを主眼に置いている理由なのです。  
+これは[request API](https://axios-http.com/docs/api_intro)のaxios公式の型定義です。
+`T`はレスポンスのデータ型、`D`はaxios configのリクエストのデータ型を表しています。
+axiosは元々URLパスとHTTPメソッドではなく、リクエストとレスポンスのデータ型を直接参照しています。
+これは汎用性のあるライブラリとしては仕方がないのですが、APIはレスポンスの型とリクエストの型だけでは特定できません。
+例えば店舗の情報を取得するAPIがあるとして、店舗IDで検索するAPIと店舗名で検索するAPIはレスポンスの型が同じですが違うAPIであることが多々あります。
+APIが特定できないということは、openapiファイルにどのようなAPIが定義されているのかがaxiosは知らないことを意味します。
+では、何のAPIが定義されているのかをaxiosに教える役目はこのままでは人の手です。
+つまりaxiosを利用するたびにopenapiファイルを見て、リクエストとレスポンスの型を埋めることになります。
+これはO(n)の実装コストと、ヒューマンエラーを抱えることになる明確な課題です。
+この課題を解決するために、openapiファイルに定義されたAPIを全て知るaxiosを作るというのは自然な問題です。
+さて再三繰り返してきましたが、APIはURLパスとHTTPメソッドのペアで特定できます。
+一方で、APIを特定するのに最も自然な情報はURLパスとHTTPメソッドでしょう。
+ですので、この物知りなaxiosを作成するという問題は「openapiファイルに定義されたURLパスとHTTPメソッドを型情報として持つaxiosであり、このペアが指定されるとレスポンスの型等の付随情報を推論できるようなaxiosを作る」ことで解決されます。
+これが上述したカスタムAPIの作成にてURLパスとHTTPメソッドを主眼に置いている理由なのです。
 そしてこのURLパスとHTTPメソッドを軸にしたアプローチを支え、実現させてくれたのはopenapi-typescriptがopenapiファイルの情報をURLパスとHTTPメソッドのペアから導けるように生成してくれたおかげです。
 
 [](#%E6%9C%80%E5%BE%8C%E3%81%AB)最後に
 -----------------------------------
 
-実は、schema.tsのヘルパーは完璧ではありません。  
-プロジェクトによってはもっと作り込む必要もあるでしょう。  
-とはいえ作り込みの完成度をどれくらい求めるかという問題は、プロジェクトの現実解を模索する問題に通じます。  
-課題に対して現実解を模索し、落とし込むことはエンジニアの醍醐味の1つでしょう。  
+実は、schema.tsのヘルパーは完璧ではありません。
+プロジェクトによってはもっと作り込む必要もあるでしょう。
+とはいえ作り込みの完成度をどれくらい求めるかという問題は、プロジェクトの現実解を模索する問題に通じます。
+課題に対して現実解を模索し、落とし込むことはエンジニアの醍醐味の1つでしょう。
 今後とも楽しく課題と遊び、幸せになる方法を模索していきたいものです。
 
 [](#%E3%81%8A%E3%81%BE%E3%81%91)おまけ
@@ -305,7 +310,7 @@ APIが特定できないということは、openapiファイルにどのよう�
 
 ### [](#swr%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E3%83%95%E3%83%83%E3%82%AF)SWRのカスタムフック
 
-SWRも似たようにカスタムフックが作れます。  
+SWRも似たようにカスタムフックが作れます。
 結果だけですが紹介します。
 
 useAppSWR
@@ -331,7 +336,7 @@ export const useAppSWR = <
 >(
   config: $axios.AxiosConfigWrapper<Path, Method>
 ) =>
-  useSWR<schemaHelper.ResponseData<Path, Method>, AxiosError>(config, fetcher); 
+  useSWR<schemaHelper.ResponseData<Path, Method>, AxiosError>(config, fetcher);
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)

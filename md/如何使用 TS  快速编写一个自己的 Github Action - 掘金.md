@@ -1,3 +1,8 @@
+---
+title: 如何使用 TS  快速编写一个自己的 Github Action - 掘金
+date: 2023-07-04 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [juejin.cn](https://juejin.cn/post/7191357386139893817)
 
 > 如果你的某项工作流程出现了多次重复性机械操作，那么你就该思考更好的优化手段了。
@@ -33,7 +38,7 @@ jobs:
     steps:
       - run: echo "冲！" # 执行的命令
       - name: Check out repository code
-        uses: actions/checkout@v3 # 拉取当前仓库代码到容器中` 
+        uses: actions/checkout@v3 # 拉取当前仓库代码到容器中`
 ```
 
 这里简单设置了一下什么时候该执行该 workflow，然后声明了一下执行的容器为 ubuntu，也是比较常用的，然后你就能在 steps 下编写需要执行的具体步骤了，这里主要做了两件事，第一个 run 就是打印了一个 `冲！` 的日志，然后第二部就是借助了官方提供的 checkout action 来进行仓库的拉取，可以非常方便的把你当前仓库的代码拉到容器当前执行目录下，当然你也设置一些参数进行更精细化的控制，这里你直接翻阅他的文档就好了。
@@ -74,12 +79,12 @@ jobs:
     name: TestJob
     steps:
       - uses: actions/checkout@v2 # 第一步，下载代码仓库
-      
+
       - name: TestStep
         id: Test
         uses: STDSuperman/action-template@master # 运行你自己的 action
         with: # 给你的 action 传参
-          host: 'aa.bb.cc.dd'` 
+          host: 'aa.bb.cc.dd'`
 ```
 
 这里主要看几个配置：
@@ -110,12 +115,12 @@ jobs:
     name: TestJob
     steps:
       - uses: actions/checkout@v2 # 第一步，下载代码仓库
-      
+
       - name: TestStep
         id: Test
         uses: STDSuperman/action-template@master # 运行你自己的 action
         with: # 给你的 action 传参
-          host: ${{ secrets.SERVER_HOST }}` 
+          host: ${{ secrets.SERVER_HOST }}`
 ```
 
 还是以上面笔者提供的例子来改一下，上面我们是以明文传递的这个 host 参数，现在我们不想让别人看到我们的服务器地址，那么我就需要使用 Secret 这个功能了，读取方式就直接按上述示例 host 的取值方式，这里的 `SERVER_HOST` 就是你创建的 secret 名。
@@ -193,7 +198,7 @@ jobs:
           port: '22'
           password: ${{ secrets.SERVER_PASSWORD }}
           targetPath: '/home/website/docs'
-          sourcePath: './dist'` 
+          sourcePath: './dist'`
 ```
 
 如上所示，笔者给出的示例项目是自己的个人博客，一个纯前端的项目，故构建需要 node 环境，这里就直接使用了官方的 action 进行 node 环境安装，同时直接使用 steps run 的方式直接执行命令安装依赖和构建；最后就是执行笔者自己编写的 action 了。
@@ -236,7 +241,7 @@ export async function run(): Promise<boolean> {
   return false
 }
 
-run()` 
+run()`
 ```
 
 这里大致介绍下代码构建，首先从读取你在 yml 文件中定义的入参，读取方式为调用官方提供的包：`core.getInput` 方法，具体的值对应的也就是上述 yml 文件中 with 指令下面传的参数，这里以入参接入的方式的好处就是你的 action 可以给不同的仓库或者别人直接使用，只需要修改入参就好了。
@@ -258,7 +263,7 @@ ts复制代码`const scpClient = new ScpClient({
   port: Number(port || 22),
   username,
   password,
-})` 
+})`
 ```
 
 这里就实例化了一个 ScpClient 实例，主要是借用了 `ssh2` 这个 npm 包做了一层文件上传和检测的封装方法，感兴趣可以看笔者的源码：[传送门](https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2FSTDSuperman%2Fdeploy-files%2Fblob%2Fmaster%2Fsrc%2Flib%2Fscp-client.ts "https://github.com/STDSuperman/deploy-files/blob/master/src/lib/scp-client.ts")。
@@ -288,7 +293,7 @@ ssh.on('ready', () => {
       this.sftpWrapper.fastPut(sourcePath, targetPath, options || {})
     }
   })
-})` 
+})`
 ```
 
 这里的代码进行了大量的简化，详细逻辑见笔者仓库源码。主流程就是读取要上传的所有文件，然后拼接路径，最终利用 ssh 的连接传给服务器。
@@ -299,7 +304,7 @@ ssh.on('ready', () => {
 
 ```
 ts复制代码`const preCommandStr: string = core.getInput('preCommands')
-const preCommands: string[] = preCommandStr?.split(/\n+/)` 
+const preCommands: string[] = preCommandStr?.split(/\n+/)`
 ```
 
 这里首先读取一下在 yml 中设置的命令参数（`preCommands`），如下示例：
@@ -317,7 +322,7 @@ yml复制代码`- name: Deploy to Server # 第二步，rsync推文件
     sourcePath: './dist'
     preCommands:
       rm -rf /home/website/docs # clear old assets
-      echo 'success'` 
+      echo 'success'`
 ```
 
 主要关注这个 `preCommands` 参数，传的值是以换行符分割的多个命令，所以上面给出的 action 使用示例里就需要 split 一下把多个命令解析出来运行。
@@ -342,7 +347,7 @@ const exec = (command: string, cwd: string): Promise<void> => {
       })
     })
   })
-}`` 
+}``
 ```
 
 拿到需要执行的命令之后，我们就可以使用上述介绍过的 scpClient 实例来进行服务器命令执行了，这个实例也是 `ssh2` 包提供的一系列与服务器交互的工具集提供的。
@@ -414,7 +419,7 @@ export async function run(): Promise<boolean> {
   return false
 }
 
-!process.env.TEST && run()` 
+!process.env.TEST && run()`
 ```
 
 完整网站部署 Action 源码地址：[传送门](https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2FSTDSuperman%2Fdeploy-files "https://github.com/STDSuperman/deploy-files")
@@ -432,7 +437,7 @@ branding:
   color: 'orange'
 runs:
   using: 'node16'
-  main: 'dist/index.js'` 
+  main: 'dist/index.js'`
 ```
 
 以笔者示例的项目为例，这里主要需要配置下name、description、 runs 指令，branding 这个主要是给你投到 github 的 action 市场的时候需要配的 icon 和颜色。
@@ -465,7 +470,7 @@ esbuild.build({
   platform: 'node',
   outfile: 'dist/index.js',
   plugins: [NativeModulePlugin],
-})` 
+})`
 ```
 
 主要就是使用了 esbuild 的 api 进行单文件打包，同时为了处理 .node 类型的原生模块，所以写了一个简单的插件进行打包，有兴趣可以参考下示例项目的实现，这里就不过多赘述了。

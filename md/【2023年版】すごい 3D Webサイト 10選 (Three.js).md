@@ -1,3 +1,8 @@
+---
+title: 【2023年版】すごい 3D Webサイト 10選 (Three.js)
+date: 2023-07-04 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [zenn.dev](https://zenn.dev/reo44/articles/63989eb5bb1392)
 
 [![](https://storage.googleapis.com/zenn-user-upload/topics/094a9b2a18.png)CSS](/topics/css)[![](https://storage.googleapis.com/zenn-user-upload/topics/171432f5a6.png)HTML](/topics/html)[![](https://storage.googleapis.com/zenn-user-upload/topics/64acd76870.png)JavaScript](/topics/javascript)[![](https://storage.googleapis.com/zenn-user-upload/topics/3c707de3e5.png)WebGL](/topics/webgl)[![](https://storage.googleapis.com/zenn-user-upload/topics/1645f58e64.png)threejs](/topics/threejs)[![](https://zenn.dev/images/drawing/tech-icon.svg)tech](/tech-or-idea)

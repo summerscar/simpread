@@ -1,3 +1,8 @@
+---
+title: GitHub のリリースノートを zx を使って対話形式で作成する
+date: 2023-07-04 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [zenn.dev](https://zenn.dev/gingertoffee/articles/c3c86f64c49bc5)
 
 [](#zx-%E3%81%8C%E5%A5%BD%E3%81%8D)zx が好き
@@ -14,7 +19,7 @@
 
 [https://github.com/cli/cli](https://github.com/cli/cli)
 
-自分が所属しているチームは 10 人程度で、複数の WEB サービスを社内向けに運用しています。  
+自分が所属しているチームは 10 人程度で、複数の WEB サービスを社内向けに運用しています。
 チームにはリリースノートを作成する文化がありませんでした。「さて、これからは作成しましょう！」としたとして、コミットメッセージルールもチームとして持っていなかったので、各人が自由にコミットメッセージを書いている中で「新たにメッセージやラベルルールをこれから決めてみんなで徹底しよう！」というのは難しいなと感じました…（メッセージやラベルルールを決めて、リリースノートを作成する機能・ツールがよくありますよね）
 
 ですので、とりあえず　Pull Request　のタイトルと実装者だけでも記載したリリースノートを作成するようにしよう、と作成したのが以下のスクリプトです。
@@ -22,7 +27,7 @@
 事前準備として、`zx` と `gh` をインストールします
 
 ```
-npm i zx gh 
+npm i zx gh
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
@@ -30,7 +35,7 @@ npm i zx gh
 `gh` を利用できるように以下を叩いて、`gh` の初期設定を行います
 
 ```
-gh auth login 
+gh auth login
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
@@ -88,10 +93,10 @@ try {
   await deleteReleaseNoteTempFile();
 }
 console.log('');
-console.log('リリースノートが作成されました。お疲れさまでした！'); 
+console.log('リリースノートが作成されました。お疲れさまでした！');
 ```
 
 ![](https://zenn.dev/images/copy-icon.svg)
 
-こういうほんとちょっとしたものを、サクッと作るのに最高な開発体験なんですよね🦥  
+こういうほんとちょっとしたものを、サクッと作るのに最高な開発体験なんですよね🦥
 よき `zx` ライフを！

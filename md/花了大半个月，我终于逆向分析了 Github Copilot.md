@@ -1,3 +1,8 @@
+---
+title: 花了大半个月，我终于逆向分析了 Github Copilot
+date: 2023-07-04 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [zhuanlan.zhihu.com](https://zhuanlan.zhihu.com/p/639993637)
 
 **背景**
@@ -299,7 +304,7 @@ function transformRequire(ast) {
                 }
               }
         }
-      
+
     },
   };
   traverse(ast, moduleTransformer);
@@ -1079,74 +1084,74 @@ retrieveAllSnippets(e, t = s.Descending) {
 
 这三个点都非常关键，我们展开来分析下：
 
-1.  **tokenize 计算每一行的 token**  
-    const p = new Set(["we", "our", "you", "it", "its", "they", "them", "their", "this", "that", "these", "those", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "can", "don", "t", "s", "will", "would", "should", "what", "which", "who", "when", "where", "why", "how", "a", "an", "the", "and", "or", "not", "no", "but", "because", "as", "until", "again", "further", "then", "once", "here", "there", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "above", "below", "to", "during", "before", "after", "of", "at", "by", "about", "between", "into", "through", "from", "up", "down", "in", "out", "on", "off", "over", "under", "only", "own", "same", "so", "than", "too", "very", "just", "now"]);  
-    const d = new Set(["if", "then", "else", "for", "while", "with", "def", "function", "return", "TODO", "import", "try", "catch", "raise", "finally", "repeat", "switch", "case", "match", "assert", "continue", "break", "const", "class", "enum", "struct", "static", "new", "super", "this", "var", ...p]);  
-    tokenize(e) {  
-    return new Set(splitIntoWords(e).filter(e => !this.stopsForLanguage.has(e)));  
-    }  
-    function splitIntoWords(e) {  
-    return e.split(/[^a-zA-Z0-9]/).filter(e => e.length > 0);  
-    }  
-    可以看到处理 tokens 其实就是分词的过程，比普通单词分割多了一步，就是过滤常见的关键词，这些关键词不影响相似度的计算（比如 if、for 这种）。  
-    
-2.  **getWindowsDelineations 分割窗口**  
-    exports.getBasicWindowDelineations = function (e, t) {  
-    const n = [];  
-    const r = t.length;  
-    if (0 == r) return [];  
-    if (r < e) return [[0, r]];  
-    for (let t = 0; t < r - e + 1; t++) n.push([t, t + e]);  
-    return n;  
-    };  
-    `getWindowsDelineations` 本身逻辑并不复杂，就是根据传入的 windowSize 返回一个二维数组，这个二维数组的每一项都是一个起始行数和终止行数，它返回的是步长为 1，在文件里面 windowSize 长度内的所有可能区间。  
-    得到这些区间后，会跟当前的内容（同样 windowSize）进行相似度计算，选择出相似度最高的区间内容返回，这个内容就是最终的 snippet。  
-    其中，获取当前内容的方法如下：  
-    get referenceTokens() {  
-    if (void 0 === this._referenceTokens) {  
-    this._referenceTokens = this.tokenizer.tokenize(this._getCursorContextInfo(this.referenceDoc).context);  
-    }  
-    return this._referenceTokens;  
-    }  
-    exports.getCursorContext = function e(doc, opts = {}) {  
-    const opts = function (e) {  
-    return {  
-    ...i,  
-    ...e  
-    };  
-    }(opts);  
-    const s = r.getTokenizer(opts.tokenizerName);  
-    if (void 0 === opts.maxTokenLength && void 0 !== opts.maxLineCount) {  
-    const e = doc.source.slice(0, doc.offset).split("\n").slice(-opts.maxLineCount);  
-    const n = e.join("\n");  
-    return {  
-    context: n,  
-    lineCount: e.length,  
-    tokenLength: s.tokenLength(n),  
-    tokenizerName: opts.tokenizerName  
-    };  
-    }  
-    _// ..._  
-    };  
-    可以看到，这里取的是当前光标前所有内容在窗口大小的截断，这个会 token 分词之后与对应的相关文件 token 进行相似度计算。  
-    
-3.  **相似度计算（`Jaccard`）**  
-    Copilot 通过一个非常简单的 **`Jaccard`** 相似度计算方法：  
-    function computeScore(e, t) {  
-    const n = new Set();  
-    e.forEach(e => {  
-    if (t.has(e)) {  
-    n.add(e);  
-    }  
-    });  
-    return n.size / (e.size + t.size - n.size);  
-    }  
-    实际上，Jaccard 相似度计算公式为：  
-    
+1.  **tokenize 计算每一行的 token**
+    const p = new Set(["we", "our", "you", "it", "its", "they", "them", "their", "this", "that", "these", "those", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "can", "don", "t", "s", "will", "would", "should", "what", "which", "who", "when", "where", "why", "how", "a", "an", "the", "and", "or", "not", "no", "but", "because", "as", "until", "again", "further", "then", "once", "here", "there", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such", "above", "below", "to", "during", "before", "after", "of", "at", "by", "about", "between", "into", "through", "from", "up", "down", "in", "out", "on", "off", "over", "under", "only", "own", "same", "so", "than", "too", "very", "just", "now"]);
+    const d = new Set(["if", "then", "else", "for", "while", "with", "def", "function", "return", "TODO", "import", "try", "catch", "raise", "finally", "repeat", "switch", "case", "match", "assert", "continue", "break", "const", "class", "enum", "struct", "static", "new", "super", "this", "var", ...p]);
+    tokenize(e) {
+    return new Set(splitIntoWords(e).filter(e => !this.stopsForLanguage.has(e)));
+    }
+    function splitIntoWords(e) {
+    return e.split(/[^a-zA-Z0-9]/).filter(e => e.length > 0);
+    }
+    可以看到处理 tokens 其实就是分词的过程，比普通单词分割多了一步，就是过滤常见的关键词，这些关键词不影响相似度的计算（比如 if、for 这种）。
+
+2.  **getWindowsDelineations 分割窗口**
+    exports.getBasicWindowDelineations = function (e, t) {
+    const n = [];
+    const r = t.length;
+    if (0 == r) return [];
+    if (r < e) return [[0, r]];
+    for (let t = 0; t < r - e + 1; t++) n.push([t, t + e]);
+    return n;
+    };
+    `getWindowsDelineations` 本身逻辑并不复杂，就是根据传入的 windowSize 返回一个二维数组，这个二维数组的每一项都是一个起始行数和终止行数，它返回的是步长为 1，在文件里面 windowSize 长度内的所有可能区间。
+    得到这些区间后，会跟当前的内容（同样 windowSize）进行相似度计算，选择出相似度最高的区间内容返回，这个内容就是最终的 snippet。
+    其中，获取当前内容的方法如下：
+    get referenceTokens() {
+    if (void 0 === this._referenceTokens) {
+    this._referenceTokens = this.tokenizer.tokenize(this._getCursorContextInfo(this.referenceDoc).context);
+    }
+    return this._referenceTokens;
+    }
+    exports.getCursorContext = function e(doc, opts = {}) {
+    const opts = function (e) {
+    return {
+    ...i,
+    ...e
+    };
+    }(opts);
+    const s = r.getTokenizer(opts.tokenizerName);
+    if (void 0 === opts.maxTokenLength && void 0 !== opts.maxLineCount) {
+    const e = doc.source.slice(0, doc.offset).split("\n").slice(-opts.maxLineCount);
+    const n = e.join("\n");
+    return {
+    context: n,
+    lineCount: e.length,
+    tokenLength: s.tokenLength(n),
+    tokenizerName: opts.tokenizerName
+    };
+    }
+    _// ..._
+    };
+    可以看到，这里取的是当前光标前所有内容在窗口大小的截断，这个会 token 分词之后与对应的相关文件 token 进行相似度计算。
+
+3.  **相似度计算（`Jaccard`）**
+    Copilot 通过一个非常简单的 **`Jaccard`** 相似度计算方法：
+    function computeScore(e, t) {
+    const n = new Set();
+    e.forEach(e => {
+    if (t.has(e)) {
+    n.add(e);
+    }
+    });
+    return n.size / (e.size + t.size - n.size);
+    }
+    实际上，Jaccard 相似度计算公式为：
+
 
 ![](https://pic3.zhimg.com/v2-e693cb544d1ebc4c77d530ffd254a976_r.jpg)
 
-这是一个非常简单的集合运算，利用交集占比来求相似度，Copilot 利用两个分词集合来快速计算文本相似度。  
+这是一个非常简单的集合运算，利用交集占比来求相似度，Copilot 利用两个分词集合来快速计算文本相似度。
 
 最后，copilot 调用了 processSnippetsForWishlist，将 snippet 加入到 wishList 当中：
 

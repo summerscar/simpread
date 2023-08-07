@@ -1,3 +1,8 @@
+---
+title: How React 18 Improves Application Performance – Vercel
+date: 2023-07-21 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [vercel.com](https://vercel.com/blog/how-react-18-improves-application-performance)
 
 React 18 has introduced concurrent features that fundamentally change the way React applications can be rendered. We'll explore how these latest features impact and improve your application's performance.
@@ -66,8 +71,8 @@ To enter the code editing mode, press Enter. To exit the edit mode, press Escape
 
 You are editing the code. To exit the edit mode, press Escape
 
-991234567891011121314import React, { useState } from "react";import CityList from "./CityList";  
-export default function SearchCities() { const [text, setText] = useState("Am");  
+991234567891011121314import React, { useState } from "react";import CityList from "./CityList";
+export default function SearchCities() { const [text, setText] = useState("Am");
 return ( <main> <h1>Traditional Rendering</h1> <input type="text" onChange={(e) => setText(e.target.value) } /> <CityList searchQuery={text} /> </main> );};Refresh preview
 
 Open on CodeSandboxIf you’re on a high-end device like a Macbook, you might want to throttle your CPU 4x to simulate a lower-end device. You can see this setting in Devtools > Performance > ⚙️ > CPU.
@@ -126,8 +131,8 @@ To enter the code editing mode, press Enter. To exit the edit mode, press Escape
 
 You are editing the code. To exit the edit mode, press Escape
 
-99123456789101112131415161718192021222324import React, { useState, useTransition } from "react";import CityList from "./CityList";  
-export default function SearchCities() { const [text, setText] = useState("Am"); const [searchQuery, setSearchQuery] = useState(text); const [isPending, startTransition] = useTransition();  
+99123456789101112131415161718192021222324import React, { useState, useTransition } from "react";import CityList from "./CityList";
+export default function SearchCities() { const [text, setText] = useState("Am"); const [searchQuery, setSearchQuery] = useState(text); const [isPending, startTransition] = useTransition();
 return ( <main> <h1><code>startTransition</code></h1> <input type="text" value={text} onChange={(e) => { setText(e.target.value) startTransition(() => { setSearchQuery(e.target.value) }) }} /> <CityList searchQuery={searchQuery} /> </main> );};Refresh preview
 
 Open on CodeSandbox
@@ -241,7 +246,7 @@ These features are helpful when working with React Server components, as they ca
 ![Group 513901.png](/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F5GjQk9vFs1ZdldkLCQZSIa%2Feeb3c1f82145a77d64efca65ff612963%2FGroup_513901.png&w=3840&q=75&dpl=dpl_P6FQeMwAsWdqUcc4vxoPhdgBkGbc)![Group 513902.png](/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F2zH5ZDltwOKhjStHVRJnNR%2F715545b4f1cdef3ff5789d59bc8cc257%2FGroup_513902.png&w=3840&q=75&dpl=dpl_P6FQeMwAsWdqUcc4vxoPhdgBkGbc)
 
 ```
-async function fetchBlogPost(id) {  const res = await fetch(`/api/posts/${id}`);  return res.json();} 
+async function fetchBlogPost(id) {  const res = await fetch(`/api/posts/${id}`);  return res.json();}
 async function BlogPostLayout() {  const post = await fetchBlogPost('123');  return '...'}async function BlogPostContent() {  const post = await fetchBlogPost('123'); // Returns memoized value  return '...'}
 export default function Page() {  return (    <BlogPostLayout>      <BlogPostContent />    </BlogPostLayout>  )}
 ```

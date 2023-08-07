@@ -1,3 +1,8 @@
+---
+title: Sane defaults for Github repositories | wiringbits
+date: 2023-06-30 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [wiringbits.net](https://wiringbits.net/blog/github-repository-setup)
 
 > While working with multiple customers, we commonly suggest potential improvements to their Github rep......

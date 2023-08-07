@@ -1,3 +1,8 @@
+---
+title: overscroll-behavior がお手軽！ モーダル UI 等のスクロール連鎖を防ぐ待望の CSS - ICS MEDIA
+date: 2023-07-11 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [ics.media](https://ics.media/entry/221024/)
 
 > 2022 年 9 月に Safari16 がリリースされ、すべての主要なブラウザで、CSS の overscroll-behavior プロパティが利用可能になりました。
@@ -47,9 +52,9 @@
 ```
 .container {
   width: 100px;
-  height: 25px; 
+  height: 25px;
   overflow-y: auto;
-  overscroll-behavior-y: none; 
+  overscroll-behavior-y: none;
 }
 .item {
   width: 100%;
@@ -72,9 +77,9 @@
 ```
 .largeContainer {
   width: 100px;
-  height: 100px; 
+  height: 100px;
   overflow-y: auto;
-  overscroll-behavior-y: none;  
+  overscroll-behavior-y: none;
 }
 .item {
   width: 100%;

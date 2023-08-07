@@ -1,3 +1,8 @@
+---
+title: A Practical Guide to Service Workers
+date: 2023-07-17 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [blog.openreplay.com](https://blog.openreplay.com/a-practical-guide-to-service-workers/)
 
 [Back](/)
@@ -9,7 +14,7 @@ A Practical Guide to Service Workers
 
 Jul 11, 2023 · 8 min read
 
-![A Practical Guide to Service Workers](/images/a-practical-guide-to-service-workers/images/hero.png) 
+![A Practical Guide to Service Workers](/images/a-practical-guide-to-service-workers/images/hero.png)
 
 > Have you ever heard of PWAs? If yes, then you know what’s up. If not, welcome to the world of modern web development. PWAs stand for Progressive Web Apps; a PWA is a web application that functions like a native app. To make this possible, PWAs use Service workers. This beginner-friendly article will describe the basics of service workers, and make a website to see how they work in real-time.
 
@@ -76,11 +81,11 @@ Use Cases
 The following are use cases for service workers:
 
 *   **Caching assets**: A cache is a storage unit that stores data in a specified format so that future data requests can be served faster. Service workers are used to facilitating this caching. Assets can be images, fonts, or custom pages.
-    
+
 *   **Sending a Push notification**: Do you remember those annoying short messages that appear as a pop-up on the top of your desktop browser or mobile home screen? Service workers help with that. They can be customized to send notifications and alerts from websites even offline.
-    
+
 *   **Synchronizing data in background**: Now, this is massive. Service workers can be customized so that when the user performs a post request like edit or update in an app with an unstable connection, it can defer that request and only send it to the server when the connection is stable. Of course, it does it in the background through caching and doesn’t affect the offline user experience.
-    
+
 
 Service Worker Lifecycle
 ------------------------
@@ -88,11 +93,11 @@ Service Worker Lifecycle
 A service worker has to be programmed to go through three stages. The stages initiate if pre-set conditions are detected. The stages are Registration, Activation, and Installation.
 
 *   **Registration**: To begin using a service worker, we have to create the service script (Javascript code file containing the service worker code) in the root directory. This gives the service worker access to the entire scope of the website. We do this to ensure it is able to control all the files in the website folder later on. If we keep it in a subfolder, it will be able to access files in that subfolder only. The next step is to register it in the main Javascript of the website. This signals the browser that it is a service worker and should not be part of the main thread but a separate background thread.
-    
+
 *   **Installation**: After registering the service worker on a different thread, it fires an Install event which installs the service worker on the browser. The code for installation is on the service worker file.
-    
+
 *   **Activation**: After the service worker installs it, it fires an active event to activate it. After this stage, the service worker becomes active and can start listening for events like a fetch call, an HTTP request, and more.
-    
+
 
 Lifecycle during reload
 -----------------------
@@ -240,7 +245,7 @@ nav a {
 
 nav .current > a {
   color: #f0a04b;
-} 
+}
 ```
 
 ### Session Replay for Developers
@@ -253,15 +258,15 @@ Visualizing work flow
 We will use the developer console to view the service workers working in the background. To do this:
 
 *   Open up your Chrome Developer Tools by using Option + ⌘ + J (on macOS),or Shift + CTRL + J (on Windows/Linux).
-    
+
 *   Click on the Applications tab. ![-](/images/a-practical-guide-to-service-workers/images/25PUeL4.png)
-    
+
 *   Clear cache to ensure the website has no saved assets beforehand.
-    
+
 *   You can see your service workers in the service worker tab. _Click on Cache to clear and Click on Service workers to view_ ![-](/images/a-practical-guide-to-service-workers/images/R8lll3a.png)
-    
+
 *   Click the console tab to see that console has no scripts. Good? Now we are set to go. ![-](/images/a-practical-guide-to-service-workers/images/eTdN0CH.png)
-    
+
 
 Register Service Worker
 -----------------------
@@ -466,7 +471,7 @@ self.addEventListener("fetch", (e) => {
         caches.match(e.request).then((res) => res);
       }),
   );
-}); 
+});
 ```
 
 *   In this case, the service worker will clone the whole website `const responseClone = res.clone()`

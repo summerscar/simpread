@@ -1,3 +1,8 @@
+---
+title: 虚拟键盘 API 的妙用 - 掘金
+date: 2023-08-01 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [juejin.cn](https://juejin.cn/post/7261985825089929276)
 
 多年来，这一直是 Web 上的默认行为，在本文中，我们将探讨这个问题、为什么会发生以及如何使用虚拟键盘 API 来解决这个问题。
@@ -20,19 +25,19 @@
 虚拟键盘 API 包括三个部分：
 
 *   虚拟键盘 API 接口，通过 `navigator.virtualKeyboard` 访问，用于取消自动虚拟键盘行为、以编程方式显示或隐藏虚拟键盘，以及获取虚拟键盘的当前位置和大小。
-    
+
 *   CSS 环境变量 `keyboard-inset-*` 提供了有关虚拟键盘位置和大小的信息。
-    
+
 *   `virtualkeyboardpolicy` 属性指定虚拟键盘是否应出现在可编辑元素上。
-    
+
     #### 取消浏览器的自动虚拟键盘行为
-    
+
     要取消浏览器的自动虚拟键盘行为，可以使用 `navigator.virtualKeyboard.overlaysContent = true`。这样，浏览器就不会自动调整视口大小以为虚拟键盘腾出空间，而是将虚拟键盘覆盖在内容上。
-    
+
     #### 使用 JavaScript 检测虚拟键盘的几何属性
-    
+
     一旦取消了默认的浏览器行为，可以使用 `navigator.virtualKeyboard.boundingRect` 获取当前虚拟键盘的几何属性，并使用 CSS 和 JavaScript 进行相应的布局调整。此外，还可以通过使用 `geometrychange` 事件监听几何属性的变化，例如键盘的显示或隐藏。
-    
+
 
 这对于将重要的用户界面元素定位在虚拟键盘不覆盖的区域非常有用。
 
@@ -45,7 +50,7 @@ javascript复制代码`if ("virtualKeyboard" in navigator) {
   navigator.virtualKeyboard.addEventListener("geometrychange", (event) => {
     const { x, y, width, height } = event.target.boundingRect;
   });
-}` 
+}`
 ```
 
 #### 使用CSS环境变量检测虚拟键盘的几何属性
@@ -81,7 +86,7 @@ html复制代码`<style>
   if ("virtualKeyboard" in navigator) {
     navigator.virtualKeyboard.overlaysContent = true;
   }
-</script>` 
+</script>`
 ```
 
 #### 控制可内容编辑元素上的虚拟键盘
@@ -103,7 +108,7 @@ html复制代码`<div contenteditable virtualkeyboardpolicy="manual" id="editor"
       navigator.virtualKeyboard.show();
     });
   }
-</script>` 
+</script>`
 ```
 
 ### 浏览器支持
@@ -142,16 +147,16 @@ html复制代码`<div contenteditable virtualkeyboardpolicy="manual" id="editor"
 ```
 javascript复制代码`if ("virtualKeyboard" in navigator) {
   navigator.virtualKeyboard.overlaysContent = true
-}` 
+}`
 ```
 
 这有点奇怪，还需使用 Javascript 来启用。当然，我们也可以使用这样的 `meta` 标签来启用：
 
 ```
 html复制代码`<meta
-  
+
   content="width=device-width, initial-scale=1.0, virtual-keyboard=overlays-content"
-/>` 
+/>`
 ```
 
 或者使用 CSS 属性：
@@ -159,7 +164,7 @@ html复制代码`<meta
 ```
 css复制代码`html {
   virtual-keyboard: overlays-content;
-}` 
+}`
 ```
 
 ### 虚拟键盘 API 的用例
@@ -174,7 +179,7 @@ css复制代码`input {
 }
 .cta {
   bottom: env(keyboard-inset-height, 0);
-}` 
+}`
 ```
 
 在移动设备上，`bottom` 值将等于键盘高度，从而用该值偏移 `checkout` 按钮。 如果浏览器不支持该 API，则默认为零。 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/792ec5eab33f4f16bd8ad168e5355e36~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp) 可以看到，由于头部和固定底部的存在空间减少了。如果垂直空间足够，就可以使用垂直媒体查询来显示头部。
@@ -193,7 +198,7 @@ css复制代码`body {
 
 .cta {
   bottom: env(keyboard-inset-height, 0);
-}` 
+}`
 ```
 
 `padding-bottom`应该是一个等于或大于固定元素高度的值。 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f395881af5074ce594a21e9d875ce40f~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp) 那么当使用虚拟键盘时会发生什么呢？考虑以下示意图： ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0bb4987969354ad285d3191cc5e45896~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp) 当虚拟键盘处于激活状态时，使用固定元素的高度作为`padding-bottom`的值是不够的。我们需要将键盘高度也考虑在内。如下所示： ![virtualkeyboard-fixed-element-use-case-2.gif](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d6108627f9e44f5ea7dd701a080073ce~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp) 为了解决这个问题，就需要检测输入框是否处于焦点状态，并根据焦点状态来改变`padding-bottom`的值。
@@ -203,7 +208,7 @@ css复制代码`body:has(input:focus) {
   padding-bottom: calc(
     var(--cta-height) + env(keyboard-inset-height, 0)
   );
-}` 
+}`
 ```
 
 那在桌面浏览器上会发生什么呢？这种情况下，`env()` 函数将回退到 0，并且将得到 `var(--cta-height)` 的值。 ![virtualkeyboard-fixed-element-use-case-2-fixed.gif](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6fb7345c4f4843a7ba3de20b509ae027~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
@@ -217,7 +222,7 @@ css复制代码`body:has(input:focus) {
 ```
 css复制代码`.fab {
   bottom: calc(1rem + env(keyboard-inset-height, 0rem));
-}` 
+}`
 ```
 
 这里使用了 `1rem` 加上键盘的高度，以避免悬浮按钮直接位于键盘顶部边缘。在使用 CSS 比较函数时，需要注意的是，在 `env()` 函数中使用无单位的数值作为回退值会导致 Safari 上的整个布局出现问题，所以必须添加 `rem` 单位。 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a708613499564d4598420a7477e9c849~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
@@ -229,7 +234,7 @@ css复制代码`.fab {
 ```
 css复制代码`.fab {
   bottom: max(2rem, 1rem + env(keyboard-inset-height, 0rem));
-}` 
+}`
 ```
 
 它的工作原理如下：
@@ -248,7 +253,7 @@ css复制代码`.layout {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto env(keyboard-inset-height, 0);
   height: 100dvh;
-}` 
+}`
 ```
 
 以下是经过上述修复后的效果： ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b04863dd876f40cdb3414b1526a8d3bd~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
@@ -271,7 +276,7 @@ css复制代码`.post-form,
 
 .nav {
   bottom: max(0px, env(keyboard-inset-height, 0) - 100px);
-}` 
+}`
 ```
 
 ##### 帖子表单

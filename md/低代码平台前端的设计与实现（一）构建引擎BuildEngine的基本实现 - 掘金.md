@@ -1,3 +1,8 @@
+---
+title: 低代码平台前端的设计与实现（一）构建引擎BuildEngine的基本实现 - 掘金
+date: 2023-07-04 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [juejin.cn](https://juejin.cn/post/7144671345484234788)
 
 低开概念我们不再赘述，但对于低开的前端来说，至少要有以下3个要素：
@@ -18,7 +23,7 @@ markdown复制代码`1. 页面
     1-1. 标题
        1-1-1. 文字
     1-2. 内容面板
-       1-2-1. 一个输入框` 
+       1-2-1. 一个输入框`
 ```
 
 如果采用xml来描述，可以是如下的形式：
@@ -29,7 +34,7 @@ xml复制代码`<page>
     <content>
         <input></input>
     </content>
-</page>` 
+</page>`
 ```
 
 当然，xml作为DSL有以下的两个问题：
@@ -58,7 +63,7 @@ json复制代码`{
             ]
         }
     ]
-}` 
+}`
 ```
 
 初看JSON可能觉得内容比起xml更多，但是在前端我们拥有原生处理JSON的能力，这一点就很体现优势。
@@ -88,7 +93,7 @@ json复制代码`{
             "componentName": "input"
         }
     ]
-}` 
+}`
 ```
 
 同时，我们需要设计一下组件节点属性props这个字段。考虑到DSL中的props最终将会送入到对应React组件的props，我们有必要进行一定的设计与处理来保证React接收到的正确性。首先，我们先假设，props里面的每一个prop属性对应的值目前只支持string、number**字面量**（后续我们会设计表达式或者事件等，这里先简单设计）。也就是说，props的类型定义为：
@@ -105,7 +110,7 @@ export interface ComponentNode {
     [propName: string]: ComponentNodePropType;
   }
   // ... ...
-}` 
+}`
 ```
 
 在我们的平台中，我们定义如下的结构：
@@ -134,7 +139,7 @@ export type ComponentNode = {
      * 组件节点子节点
      */
     children?: Array<ComponentNode>;
-}` 
+}`
 ```
 
 构建
@@ -164,7 +169,7 @@ export const COMPONENT_MAP = {
     'button': Button,
     'input': Input,
     'text': Text
-}` 
+}`
 ```
 
 当然，平台还设计了一个内置默认的组件名为`"text"`的文本节点。主要用于某些组件的子节点直接是一个文本内容的场景来进行映射：
@@ -178,7 +183,7 @@ json复制代码`{
       "value": "hello, button"
     }
   }]
-}` 
+}`
 ```
 
 构建引擎（BuildEngine）
@@ -232,7 +237,7 @@ export class BuildEngine {
             childrenReactNode.length > 0 ? childrenReactNode : undefined
         )
     }
-}` 
+}`
 ```
 
 需要注意，这个Engine的公共API是build，由外部调用，仅需要传入根节点ComponentNode即可得到整个节点数的UI组件树（ReactNode）。为了后续我们优化内部的API结构，我们内部使用innerBuild作为内部处理的实际方法。
@@ -303,7 +308,7 @@ export function SimpleExample() {
             </div>
         </div>
     );
-}` 
+}`
 ```
 
 ![020-base-effect](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/85738e9c587042e7b0b64fb8e4125594~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
@@ -327,7 +332,7 @@ json复制代码`{
         {
             "componentName": "panel",
             "children": [
-                {    
+                {
                     "componentName": "input"
                 },
                 {
@@ -335,11 +340,11 @@ json复制代码`{
                 }
             ]
         },
-        {    
+        {
             "componentName": "input"
         }
     ]
-}` 
+}`
 ```
 
 对于上述的每一个type，都应当有其标志其唯一的一个key。可以知道，每一个元素的路径是唯一的：
@@ -372,7 +377,7 @@ diff复制代码``// BuildEngine.ts代码
 +                // 父级路径（也就是当前path）+ '/' + 子元素名称 + '@' + 子元素所在索引
 +                const childPath = `${path}/${childNode.componentName}@${index}`;
 +                return this.innerBuild(childNode, childPath);
-+            });`` 
++            });``
 ```
 
 首先，我们修改了innerBuild方法入参，增加了参数`path`，用以表示当前节点所在的路径；其次，在生成子元素调用innertBuild的地方，将`path`作为基准，根据上述规则`"${componentName}@${index}"`，来生成子元素节点的路径，并传入到的递归调用的innerBuild中。
@@ -386,7 +391,7 @@ diff复制代码`// BuildEngine.ts代码
 +       // 起始节点，需要构造一个起始path传入innerBuild
 +       // 根节点由于不属于某一个父级的子元素，所以不存在'@${index}'
 +       return this.innerBuild(componentNode, '/' + componentNode.componentName);
-    }` 
+    }`
 ```
 
 再回到innerBuild关于使用React.createElement的部分，考虑到现在已经有了path作为每一个组件唯一的路径标识。我们可以将该path作为每一个组件的key，让React创建元素的时候，将这个path作为key添加到组件实例上，进而解决`Warning: Each child in a list should have a unique "key" prop.`组件为一个key属性问题。相关改动代码如下：
@@ -398,7 +403,7 @@ diff复制代码`// innerBuild中最后的返回ReactNode部分
 -           {...props},
 +           {...props, key: path}, // 将path作为key
             childrenReactNode.length > 0 ? childrenReactNode : undefined
-        )` 
+        )`
 ```
 
 关于构建的总结
@@ -422,5 +427,5 @@ vbnet复制代码`modify: BuildEngine递归增加path标识组件唯一性，并
 add: 新增BuildEngine并导出相关类型；修改样例代码，验证BuildEngine流程。
 add: 新增组件名称与组件构造器映射的数据容器，用于构建过程中根据对应组件名称构造对应的组件实例。
 add: ComponentNode 映射 JSON DSL
-init: 项目初始化，添加core and example 基础文件（使用antd5）。` 
+init: 项目初始化，添加core and example 基础文件（使用antd5）。`
 ```

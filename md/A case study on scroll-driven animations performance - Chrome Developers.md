@@ -1,3 +1,8 @@
+---
+title: A case study on scroll-driven animations performance - Chrome Developers
+date: 2023-07-17 13:51:27
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [developer.chrome.com](https://developer.chrome.com/en/blog/scroll-animation-performance-case-study/)
 
 [#](#whats-new-with-scroll-driven-animations) What’s new with scroll-driven animations?
@@ -28,11 +33,11 @@ The following example progress bar is built using class JavaScript techniques.
 The document responds each time the `scroll` event happens to calculate how much percentage of the `scrollHeight` the user has scrolled to.
 
 ```
-document.addEventListener("scroll", () => {  
-  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;  
-  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;  
-  var scrolled = (winScroll / height) * 100;   
-  document.getElementById("progress").style.width = scrolled + "%";  
+document.addEventListener("scroll", () => {
+  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  var scrolled = (winScroll / height) * 100;
+  document.getElementById("progress").style.width = scrolled + "%";
 })
 ```
 
@@ -41,18 +46,18 @@ The following demo shows the same progress bar using the new API with CSS.
 <video src="" control></video>
 
 ```
-@keyframes grow-progress {  
-  from {  
-    transform: scaleX(0);  
-  }  
-  to {  
-    transform: scaleX(1);  
-  }  
-}  
-  
-#progress {  
-  animation: grow-progress auto linear forwards;  
-  animation-timeline: scroll(block root);  
+@keyframes grow-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+#progress {
+  animation: grow-progress auto linear forwards;
+  animation-timeline: scroll(block root);
 }
 ```
 
@@ -61,15 +66,15 @@ The new [animation-timeline](/articles/scroll-driven-animations/#animation-timel
 Now here’s the interesting part—let’s say that you implemented a super-heavy calculation on both versions of the website that would eat up most of the main thread resources.
 
 ```
-function someHeavyJS(){  
-  let time = 0;  
-  window.setInterval(function () {  
-    time++;  
-    for (var i = 0; i < 1e9; i++) {  
-      result = i;  
-    }  
-    console.log(time)  
-  }, 100);  
+function someHeavyJS(){
+  let time = 0;
+  window.setInterval(function () {
+    time++;
+    for (var i = 0; i < 1e9; i++) {
+      result = i;
+    }
+    console.log(time)
+  }, 100);
 }
 ```
 
@@ -93,18 +98,18 @@ See the Pen <a href="https://codepen.io/herablog/embed/dygjeQE">Pen dygjeQE by h
 The benefit of the new API is not only limited to CSS. You are able to create silky smooth scroll-driven animations using JavaScript as well. Take a look at the following example:
 
 ```
-const progressbar = document.querySelector('#progress');  
-progressbar.style.transformOrigin = '0% 50%';  
-progressbar.animate(  
-  {  
-    transform: ['scaleX(0)', 'scaleX(1)'],  
-  },  
-  {  
-    fill: 'forwards',  
-    timeline: new ScrollTimeline({  
-      source: document.documentElement,  
-    }),  
-  }  
+const progressbar = document.querySelector('#progress');
+progressbar.style.transformOrigin = '0% 50%';
+progressbar.animate(
+  {
+    transform: ['scaleX(0)', 'scaleX(1)'],
+  },
+  {
+    fill: 'forwards',
+    timeline: new ScrollTimeline({
+      source: document.documentElement,
+    }),
+  }
 );
 ```
 
