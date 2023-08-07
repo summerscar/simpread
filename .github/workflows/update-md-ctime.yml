@@ -1,5 +1,5 @@
-name: Add markdown creaded time
-run-name: Add markdown creaded time
+name: Add markdown created time
+run-name: Add markdown created time
 on: [push]
 jobs:
   update-md:
