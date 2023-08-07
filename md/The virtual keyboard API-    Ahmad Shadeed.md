@@ -1,3 +1,8 @@
+---
+title: The virtual keyboard API-    Ahmad Shadeed
+date: 2023-08-07 17:13:41
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [ishadeed.com](https://ishadeed.com/article/virtual-keyboard-api/)
 
 > A deep-dive into the virtual keyboard API.
