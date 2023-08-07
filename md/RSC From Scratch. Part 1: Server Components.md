@@ -1,5 +1,5 @@
 ---
-title: RSC From Scratch. Part 1: Server Components
+title: RSC From Scratch. Part 1 Server Components
 date: 2023-07-04 13:51:27
 ---
 

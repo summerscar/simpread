@@ -1,24 +1,8 @@
 import { Link, useLoaderData } from "@remix-run/react";
-import { readdir } from "fs/promises";
-import { statSync } from "fs";
-import { resolve } from "path";
-
-export const POST_DIR = "./md";
+import { getPostList } from "./posts[.]rss";
 
 export async function loader() {
-  const posts = await readdir(POST_DIR);
-
-  const postList = posts
-    .map((post) => {
-      const { ctime, mtime } = statSync(resolve(POST_DIR, post));
-
-      return {
-        name: post.replace(/\.mdx?$/, ""),
-        create_at: ctime,
-        modified_at: mtime,
-      };
-    })
-    .sort((a, b) => b.create_at.getTime() - a.create_at.getTime());
+  const postList = await getPostList();
 
   return postList;
 }

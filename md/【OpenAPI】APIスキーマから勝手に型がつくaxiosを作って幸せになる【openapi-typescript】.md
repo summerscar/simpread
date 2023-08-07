@@ -1,5 +1,5 @@
 ---
-title:【OpenAPI】APIスキーマから勝手に型がつくaxiosを作って幸せになる【openapi-typescript】
+title: 【OpenAPI】APIスキーマから勝手に型がつくaxiosを作って幸せになる【openapi-typescript】
 date: 2023-07-21 13:51:27
 ---
 

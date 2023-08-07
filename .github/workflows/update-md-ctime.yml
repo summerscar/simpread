@@ -20,29 +20,28 @@ jobs:
         id: get_files
         run: |
           modified_files=$(git diff --name-only HEAD^ HEAD | grep ".md$") || true
-          echo "::set-output name=files::$modified_files"
+          echo "files=$modified_files" >> $GITHUB_OUTPUT
 
       - name: Insert Front Matter
         run: |
           IFS=`echo -e "\n"`
           files="${{ steps.get_files.outputs.files }}"
           for file in $files; do
-            echo "Processing $file..."
-            filename=$(basename "$file" .md)
-            if grep -q "^---" $file; then
-              echo 'Skip insert Front Matter'
-              # sed -i.bak "s/^---\ntitle: $filename\ndate: .*/---\ntitle: $filename\ndate: $(TZ=Asia/Shanghai date +"%Y-%m-%d %H:%M:%S")/" "$file"
+            if [[ -f "$file" ]]; then
+              echo "Processing [$file]..."
+              filename=$(basename "$file" .md)
+              if grep -q "^---" $file; then
+                echo 'Skip insert Front Matter'
+                # sed -i.bak "s/^---\ntitle: $filename\ndate: .*/---\ntitle: $filename\ndate: $(TZ=Asia/Shanghai date +"%Y-%m-%d %H:%M:%S")/" "$file"
+              else
+                echo 'Insert Front Matter'
+                sed -i.bak "1i---\ntitle: $filename\ndate: $(TZ=Asia/Shanghai date +"%Y-%m-%d %H:%M:%S")\n---\n" "$file"
+              fi
             else
-              echo 'Insert Front Matter'
-              sed -i.bak "1i---\ntitle: $filename\ndate: $(TZ=Asia/Shanghai date +"%Y-%m-%d %H:%M:%S")\n---\n" "$file"
+              echo "文件 $file 不存在"
             fi
           done
 
-      - name: Commit Changes
-        run: |
-          git diff
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git add .
-          git commit -m "Update Markdown files with front matter"
-          git push
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update Markdown files with front matter

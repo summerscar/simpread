@@ -1,33 +1,38 @@
 import type { LoaderArgs } from "@remix-run/node";
-import { POST_DIR } from "./posts";
+import { POST_DIR } from "~/utils/config";
 import { readdir } from "fs/promises";
-import { statSync, readFileSync } from "fs";
+import { statSync } from "fs";
 import { resolve } from "path";
 import ReactDomServer from "react-dom/server";
 import ReactMarkdown from "react-markdown";
+import * as matter from "gray-matter";
+
+export const getPostList = async (slice?: number) => {
+  const posts = await readdir(POST_DIR);
+
+  const postList = posts
+    .map((post) => {
+      const postPath = resolve(POST_DIR, post);
+      const { ctime } = statSync(postPath);
+      const matterData = matter.read(postPath);
+
+      return {
+        name: post.replace(/\.mdx?$/, ""),
+        create_at: matterData.data.date || ctime,
+        content: matterData.content,
+      };
+    })
+    .sort((a, b) => b.create_at.getTime() - a.create_at.getTime())
+    .slice(slice || 0);
+  return postList;
+};
 
 function escapeCdata(s: string) {
   return s.replace(/\]\]>/g, "]]]]><![CDATA[>");
 }
 
 export const loader = async ({ request }: LoaderArgs) => {
-  const posts = await readdir(POST_DIR);
-
-  const postList = posts
-    .map((post) => {
-      const { ctime, mtime } = statSync(resolve(POST_DIR, post));
-      const content = readFileSync(resolve(POST_DIR, post), {
-        encoding: "utf-8",
-      });
-      return {
-        name: post.replace(/\.mdx?$/, ""),
-        create_at: ctime,
-        modified_at: mtime,
-        content,
-      };
-    })
-    .sort((a, b) => b.create_at.getTime() - a.create_at.getTime());
-
+  const postList = await getPostList(5);
   const host =
     request.headers.get("X-Forwarded-Host") ?? request.headers.get("host");
   if (!host) {
@@ -36,7 +41,6 @@ export const loader = async ({ request }: LoaderArgs) => {
   const protocol = host.includes("localhost") ? "http" : "https";
   const domain = `${protocol}://${host}`;
   const homeUrl = `${domain}`;
-  console.log(ReactDomServer.renderToString(<div>222</div>));
 
   const rssString = `
     <rss xmlns:blogChannel="${homeUrl}" version="2.0">

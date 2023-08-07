@@ -1,9 +1,9 @@
 import { json, type LoaderArgs, type V2_MetaFunction } from "@remix-run/node";
-import { readFile } from "fs/promises";
-import { POST_DIR } from "./posts";
+import { POST_DIR } from "~/utils/config";
 import { resolve } from "path";
 import { Link, useLoaderData } from "@remix-run/react";
 import ReactMarkdown from "react-markdown";
+import * as matter from "gray-matter";
 
 export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
   return [
@@ -18,10 +18,11 @@ export async function loader({ params }: LoaderArgs) {
 
   try {
     const postPath = resolve(POST_DIR, `${post}.md`);
-    const file = await readFile(postPath, { encoding: "utf-8" });
+    const matterData = matter.read(postPath);
+
     return {
       title: post,
-      content: file,
+      content: matterData.content,
     };
   } catch (e: any) {
     console.error(`[post][${post}]:`, e.message);
