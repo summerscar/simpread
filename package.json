@@ -3,9 +3,8 @@
   "sideEffects": false,
   "scripts": {
     "build": "remix build",
-    "dev": "concurrently \"npm run sass\" \"remix dev\"",
-    "typecheck": "tsc",
-    "sass": "sass --watch app/"
+    "dev": "remix dev",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@remix-run/css-bundle": "^1.19.2",
@@ -46,7 +45,8 @@
       "isbot",
       "Pipeable",
       "summerscar",
-      "tailwindcss"
+      "tailwindcss",
+      "typecheck"
     ],
     "ignoreWords": [],
     "import": []

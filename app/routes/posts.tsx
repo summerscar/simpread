@@ -1,6 +1,5 @@
 import { Link, useLoaderData } from "@remix-run/react";
 import { getPostList } from "./posts[.]rss";
-import styles from "./posts.module.css";
 
 export async function loader() {
   const postList = await getPostList();
@@ -36,7 +35,6 @@ const Posts = ({ inline = false }: { inline?: Boolean }) => {
     <div>
       <Link to={"/"}>{"<"} Back</Link>
       <h1>Post</h1>
-
       {posts}
     </div>
   );

@@ -1,6 +1,5 @@
 import type { V2_MetaFunction } from "@remix-run/node";
 import Posts from "./posts";
-import styles from "./_index.module.css";
 
 export const meta: V2_MetaFunction = () => {
   return [
