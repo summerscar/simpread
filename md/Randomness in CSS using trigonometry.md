@@ -1,3 +1,8 @@
+---
+title: Randomness in CSS using trigonometry
+date: 2023-08-07 17:24:38
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [hypersphere.blog](https://hypersphere.blog/blog/randomness-in-css-using-trigonometry/)
 
 > Explore brand new technique to generate random numbers with plain CSS using new trigonometry function......
