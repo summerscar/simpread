@@ -1,0 +1,48 @@
+name: Add markdown creaded time
+run-name: Add markdown creaded time
+on: [push]
+jobs:
+  update-md:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Check Markdown Changes
+        run: |
+          if git diff --name-only HEAD^ HEAD | grep -q ".md$"; then
+            echo "Markdown files have been modified."
+          else
+            echo "No changes to Markdown files."
+          fi
+
+      - name: Get Modified Markdown Files
+        id: get_files
+        run: |
+          modified_files=$(git diff --name-only HEAD^ HEAD | grep ".md$") || true
+          echo "::set-output name=files::$modified_files"
+
+      - name: Insert Front Matter
+        run: |
+          IFS=`echo -e "\n"`
+          files="${{ steps.get_files.outputs.files }}"
+          for file in $files; do
+            echo "Processing $file..."
+            filename=$(basename "$file" .md)
+            if grep -q "^---" $file; then
+              echo 'Skip insert Front Matter'
+              # sed -i.bak "s/^---\ntitle: $filename\ndate: .*/---\ntitle: $filename\ndate: $(TZ=Asia/Shanghai date +"%Y-%m-%d %H:%M:%S")/" "$file"
+            else
+              echo 'Insert Front Matter'
+              sed -i.bak "1i---\ntitle: $filename\ndate: $(TZ=Asia/Shanghai date +"%Y-%m-%d %H:%M:%S")\n---\n" "$file"
+            fi
+          done
+
+      - name: Commit Changes
+        run: |
+          git diff
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Update Markdown files with front matter"
+          git push
