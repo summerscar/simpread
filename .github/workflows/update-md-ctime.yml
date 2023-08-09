@@ -13,7 +13,13 @@ jobs:
       - name: Get Modified Markdown Files
         id: get_files
         run: |
-          modified_files=$(git diff --name-only "HEAD^" | grep ".md$") || true
+          git config core.quotepath false
+          git diff --name-only HEAD^ | awk -F'\n' '{print $0}' > modified_files.txt
+          # sed -i 's/^"//;s/"$//' modified_files.txt
+          modified_files=$(cat modified_files.txt | grep ".md$")
+          echo "##################  modified_files: ##################"
+          echo "$modified_files"
+          rm modified_files.txt
           echo "files=$modified_files" >> $GITHUB_OUTPUT
 
       - name: Insert Front Matter
@@ -22,18 +28,19 @@ jobs:
           files="${{ steps.get_files.outputs.files }}"
           for file in $files; do
             if [[ -f "$file" ]]; then
-              echo "Processing [$file]..."
+              echo "################## Processing [$file]... ##################"
               filename=$(basename "$file" .md)
               front_matter=$(head -n 3 "$file")
               if [[ "$front_matter" = "---"* ]]; then
-                echo 'Skip insert Front Matter'
+                echo '################## Skip insert Front Matter ##################'
                 # sed -i "s/^---\ntitle: $filename\ndate: .*/---\ntitle: $filename\ndate: $(TZ=Asia/Shanghai date +"%Y-%m-%d %H:%M:%S")/" "$file"
               else
-                echo 'Insert Front Matter'
+                echo '################## Insert Front Matter ##################'
                 sed -i "1i---\ntitle: $filename\ndate: $(TZ=Asia/Shanghai date +"%Y-%m-%d %H:%M:%S")\n---\n" "$file"
+                echo "$(head -n 5 "$file")"
               fi
             else
-              echo "文件 $file 不存在"
+              echo "################## 文件 $file 不存在 ##################"
             fi
           done
 

@@ -40,7 +40,7 @@ const Post = () => {
           🏡
         </Link>
       </nav>
-      <ReactMarkdown>{post?.content || ""}</ReactMarkdown>;
+      <ReactMarkdown>{post?.content || ""}</ReactMarkdown>
     </div>
   );
 };
