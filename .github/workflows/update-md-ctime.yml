@@ -14,9 +14,9 @@ jobs:
         id: get_files
         run: |
           git config core.quotepath false
-          git diff --name-only HEAD^ | awk -F'\n' '{print $0}' > modified_files.txt
+          git diff --name-only HEAD^ > modified_files.txt
           # sed -i 's/^"//;s/"$//' modified_files.txt
-          modified_files=$(cat modified_files.txt | grep ".md$")
+          modified_files=$(cat modified_files.txt | grep ".md$") || true
           echo "##################  modified_files: ##################"
           echo "$modified_files"
           rm modified_files.txt

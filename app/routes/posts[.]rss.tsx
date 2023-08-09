@@ -1,7 +1,6 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { POST_DIR } from "~/utils/config";
 import { readdir } from "fs/promises";
-import { statSync } from "fs";
 import { resolve } from "path";
 import ReactDomServer from "react-dom/server";
 import ReactMarkdown from "react-markdown";
@@ -13,12 +12,13 @@ export const getPostList = async (slice?: number) => {
   const postList = posts
     .map((post) => {
       const postPath = resolve(POST_DIR, post);
-      const { ctime } = statSync(postPath);
       const matterData = matter.read(postPath);
 
       return {
         name: post.replace(/\.mdx?$/, ""),
-        create_at: matterData.data.date || ctime,
+        create_at: matterData.data.date
+          ? new Date(+matterData.data.date - 8 * 60 * 60 * 1000)
+          : new Date(),
         content: matterData.content,
       };
     })

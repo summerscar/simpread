@@ -19,6 +19,9 @@ const Posts = ({ inline = false }: { inline?: Boolean }) => {
             to={"/posts/" + post.name}
             target="_self"
             rel="noreferrer"
+            title={`${post.name} - ${new Date(
+              post.create_at
+            ).toLocaleString()}`}
           >
             {post.name}
           </Link>
