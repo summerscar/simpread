@@ -1,3 +1,8 @@
+---
+title: tsconfig.json - TypeScript 教程 - 网道
+date: 2023-08-09 14:04:54
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [wangdoc.com](https://wangdoc.com/typescript/tsconfig.json)
 
 > 网道（WangDoc.com），互联网文档计划
