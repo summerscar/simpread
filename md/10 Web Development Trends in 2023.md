@@ -1,3 +1,8 @@
+---
+title: 10 Web Development Trends in 2023
+date: 2023-08-19 16:05:31
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [www.robinwieruch.de](https://www.robinwieruch.de/web-development-trends/)
 
 > Web Development Trends in 2023 which should be on your watchlist. A walkthrough of the state of JS ........
