@@ -1,3 +1,8 @@
+---
+title: How to Build a Fullstack App with Next.js, Prisma, & PostgreSQL
+date: 2023-08-19 15:56:42
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [vercel.com](https://vercel.com/guides/nextjs-prisma-postgres)
 
 > Learn how to create and deploy a fullstack application with Next.js, Prisma, PostgreSQL, and Vercel.
