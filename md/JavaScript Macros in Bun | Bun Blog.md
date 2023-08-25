@@ -1,3 +1,8 @@
+---
+title: JavaScript Macros in Bun | Bun Blog
+date: 2023-08-25 13:29:26
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [bun.sh](https://bun.sh/blog/bun-macros)
 
 > Call JavaScript functions at bundle-time and inline results into the AST
