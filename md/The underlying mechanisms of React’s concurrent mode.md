@@ -1,3 +1,8 @@
+---
+title: The underlying mechanisms of React’s concurrent mode
+date: 2023-08-29 15:58:21
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [andreigatej.dev](https://andreigatej.dev/blog/the-underlying-mechanisms-of-reacts-concurrent-mode/)
 
 > Introduction It’s not the first time React seemed like magic to me. But, this time, reading the Marki......
