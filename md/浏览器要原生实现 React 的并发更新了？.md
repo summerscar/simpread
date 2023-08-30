@@ -1,3 +1,8 @@
+---
+title: 浏览器要原生实现 React 的并发更新了？
+date: 2023-08-30 13:29:47
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [juejin.cn](https://juejin.cn/post/7270902621065412664)
 
 大家好，我卡颂。
