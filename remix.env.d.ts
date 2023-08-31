@@ -7,3 +7,9 @@ declare module "*.module.scss" {
   };
   export default styles;
 }
+
+interface Window {
+  ENV: {
+    readonly COMMIT_TIME?: number;
+  };
+}

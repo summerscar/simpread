@@ -1,5 +1,6 @@
 import type { V2_MetaFunction } from "@remix-run/node";
 import Posts from "./posts";
+import { isBrowser } from "~/utils";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -44,6 +45,11 @@ export default function Index() {
         </a>
       </div>
       <Posts inline />
+      <div className="mt-4 mb-4 text-gray-300 text-xs">
+        {isBrowser() && window.ENV.COMMIT_TIME && (
+          <>Last update: {new Date(window.ENV.COMMIT_TIME).toLocaleString()}</>
+        )}
+      </div>
     </div>
   );
 }
