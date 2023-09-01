@@ -1,3 +1,8 @@
+---
+title: Console Utilities API reference - Chrome Developers
+date: 2023-09-01 13:45:10
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [developer.chrome.com](https://developer.chrome.com/docs/devtools/console/utilities/#values-function)
 
 > A reference of convenience functions available in the Chrome DevTools Console.
