@@ -1,3 +1,8 @@
+---
+title: FreeMdict 资料库点此下载 - FreeMdict
+date: 2023-09-06 15:37:34
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [freemdict.com](https://freemdict.com/2018/11/10/freemdict%e8%b5%84%e6%96%99%e5%ba%93%e7%82%b9%e6%ad%a4%e4%b8%8b%e8%bd%bd/)
 
 > 本站提供多种精美资源，重要的话先说，整站永不收费以及无指定权限浏览，也就是说，你注册不注册以及赞助不赞助都可以畅享本站所有资源。
