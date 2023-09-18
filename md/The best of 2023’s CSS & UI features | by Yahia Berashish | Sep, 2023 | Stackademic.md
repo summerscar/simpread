@@ -1,3 +1,8 @@
+---
+title: The best of 2023’s CSS & UI features | by Yahia Berashish | Sep, 2023 | Stackademic
+date: 2023-09-18 13:49:46
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [blog.stackademic.com](https://blog.stackademic.com/the-best-of-2023s-css-ui-features-7448c6855c14)
 
 > An overview of the most exciting new CSS & UI features of 2023.
