@@ -1,7 +1,7 @@
-import type { V2_MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 import Posts from "./posts";
 
-export const meta: V2_MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return [
     { title: "简悦 - 技术文章收集" },
     { name: "description", content: "简悦 - 技术文章收集" },

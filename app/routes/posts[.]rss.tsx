@@ -1,4 +1,4 @@
-import type { LoaderArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { POST_DIR } from "~/utils/config";
 import { readdir } from "fs/promises";
 import { resolve } from "path";
@@ -31,7 +31,7 @@ function escapeCdata(s: string) {
   return s.replace(/\]\]>/g, "]]]]><![CDATA[>");
 }
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const postList = await getPostList(5);
   const host =
     request.headers.get("X-Forwarded-Host") ?? request.headers.get("host");

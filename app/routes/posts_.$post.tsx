@@ -1,18 +1,22 @@
-import { json, type LoaderArgs, type V2_MetaFunction } from "@remix-run/node";
+import {
+  json,
+  type LoaderFunctionArgs,
+  type MetaFunction,
+} from "@remix-run/node";
 import { POST_DIR } from "~/utils/config";
 import { resolve } from "path";
 import { Link, useLoaderData } from "@remix-run/react";
 import ReactMarkdown from "react-markdown";
 import * as matter from "gray-matter";
 
-export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
     { title: data?.title },
     { name: "description", content: "简悦 - 技术文章收集" },
   ];
 };
 
-export async function loader({ params }: LoaderArgs) {
+export async function loader({ params }: LoaderFunctionArgs) {
   const post = params.post;
   if (!post) return null;
 
