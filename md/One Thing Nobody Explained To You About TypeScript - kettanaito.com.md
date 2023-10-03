@@ -1,3 +1,8 @@
+---
+title: One Thing Nobody Explained To You About TypeScript - kettanaito.com
+date: 2023-10-03 16:14:15
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [kettanaito.com](https://kettanaito.com/blog/one-thing-nobody-explained-to-you-about-typescript)
 
 > One of the most common mistakes in configuring TypeScript.
