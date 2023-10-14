@@ -1,0 +1,85 @@
+> 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [www.bram.us](https://www.bram.us/2023/10/13/whats-new-in-css-2022-10-12-frontmania/)
+
+> Slides of the talk “What’s new in CSS” I gave at Frontmania
+
+[![](https://www.bram.us/wordpress/wp-content/uploads/2023/10/frontmania-IMG_8934.jpeg)](https://www.bram.us/wordpress/wp-content/uploads/2023/10/frontmania-IMG_8934.jpeg "Me, on stage, pointing at some blob of code")
+
+Yesterday I was in Utrecht to speak at [Frontmania](https://frontmania.con/). The talk I gave covered all the recent and new stuff that’s coming to CSS.
+
+~
+
+### Table of Contents
+
+*   [The Talk](#the-talk)
+*   [Slides](#slides)
+*   [Recording/Video](#recording)
+*   [Thanks!](#thanks)
+
+~
+
+### [#](#the-talk) The Talk
+
+The talk I gave is a full-length talk of 45 minutes.
+
+> Things have been going hard for CSS the past few years, with many new features landing across browsers at a very fast pace.
+> 
+> With this talk you’ll be up to speed on some of the recent additions to CSS and how they allow you to write cleaner, clearer, and more maintainable CSS. They might even allow you to remove some nasty CSS hacks or JS-based solutions that you’re currently relying on.
+> 
+> And oh, time permitting we’ll also take a look into the future at what’s to come next …
+
+Because this talk gives you a rundown of all the new niceties, it hops around from topic to topic. Covered topics were:
+
+*   Intro: It’s an exciting but also confusing time to be a frontend developer
+    *   [Interop 2023](https://web.dev/interop-2023/)
+    *   Monthly [New to the Web Platform](https://web.dev/tags/new-to-the-web/) posts on web.dev
+*   Established Additions:
+    *   [Custom Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)
+    *   [Space-Separated Color Notation](https://brm.us/space-colors)
+    *   [`aspect-ratio`](https://brm.us/aspect-ratio)
+    *   [Smooth Scrolling](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior)
+    *   [Scroll Snapping](https://nerdy.dev/spoke-at-css-day-for-the-first-time)
+    *   [`accent-color`](https://brm.us/accent-color)
+*   New/Upcoming Additions:
+    *   [(Size) Container Queries](https://web.dev/cq-stable/)
+    *   [CSS Nesting](https://developer.chrome.com/articles/css-nesting/)
+    *   [`:has()`](https://brm.us/css-has)
+    *   [Color Spaces](https://developer.chrome.com/articles/high-definition-css-color-guide/)
+    *   [Color Functions](https://brm.us/new-color-functions)
+    *   [New Viewport Units](https://web.dev/viewport-units/)
+    *   [Individual Transform Properties](https://web.dev/css-individual-transform-properties/)
+    *   [Cascade Layers](https://brm.us/cascade-layers)
+    *   [Subgrid](https://web.dev/articles/css-subgrid)
+    *   [Media Query Ranges](https://brm.us/media-query-ranges)
+    *   [`@property`](https://web.dev/at-property/)
+    *   [View Transitions](https://developer.chrome.com/docs/web-platform/view-transitions/)
+    *   [Scroll-Driven Animations](https://scroll-driven-animations.style/)
+    *   [Scoped Styles with `@scope`](https://developer.chrome.com/articles/at-scope/)
+*   Things I didn’t talk about:
+
+Yes, you see that correctly: the talk also covers [Custom Properties](https://www.bram.us/2016/11/12/css-variables-var-subtitle/), an almost decade old feature of CSS. Note that many people know the difference between those and preprocessor variable (which are nothing but static tokens). For those reasons, and because many demos rely on them, I include it in my talk as the first topic. It also forms a nice link to `@property` – covered later in the talk – which gives them their superpowers.
+
+~
+
+### [#](#slides) Slides
+
+The slides of my talk are [up on slidr.io](https://slidr.io/bramus/what-s-new-in-css-2023-10-12-frontmania) are embedded below:
+
+~
+
+### [#](#recording) Recording/Video
+
+The talk was recorded but hasn’t been released yet. Once it does get published, I will updated this post to embed it.
+
+~
+
+### [#](#thanks) Thanks!
+
+Thanks to the organizers for having me and thanks to the attendees for being there. It was great to have a full room full of you. Judging by the amount of phones that when up during the talk to take some photos and by the number of laughs from time to time, I think you all enjoyed it. I certainly did while standing there on stage doing my thing.
+
+[![](https://www.bram.us/wordpress/wp-content/uploads/2023/10/frontmania-IMG_9193.jpeg)](https://www.bram.us/wordpress/wp-content/uploads/2023/10/frontmania-IMG_9193.jpeg "Me, on stage")
+
+It was also great to meet many new faces and also see some of you who I’ve only interacted with online before in-person for the first time.
+
+~
+
+Bramus is a frontend web developer from Belgium, working as a Chrome Developer Relations Engineer at Google. From the moment he discovered view-source at the age of 14 _(way back in 1997)_, he fell in love with the web and has been tinkering with it ever since _[(more …)](https://www.bram.us/about)_ [View more posts](https://www.bram.us/author/bramus/)
