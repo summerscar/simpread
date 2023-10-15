@@ -1,3 +1,8 @@
+---
+title: Junior to Senior Web Developer Roadmap: Breakdown - DEV Community
+date: 2023-10-15 17:29:49
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [dev.to](https://dev.to/aswin2001barath/junior-to-senior-web-developer-roadmap-breakdown-1525)
 
 > Are you someone who is a junior developer struggling to climb up the corporate ladder and become a.........
