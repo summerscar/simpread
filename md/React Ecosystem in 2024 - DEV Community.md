@@ -1,3 +1,8 @@
+---
+title: React Ecosystem in 2024 - DEV Community
+date: 2023-10-24 17:53:50
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [dev.to](https://dev.to/avinashvagh/react-ecosystem-in-2024-418k)
 
 > As React celebrates its 11th anniversary in 2024, it’s worth looking ahead to the exciting...
