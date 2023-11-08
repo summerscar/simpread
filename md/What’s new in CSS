@@ -1,3 +1,8 @@
+---
+title: What’s new in CSS
+date: 2023-10-14 14:04:54
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [www.bram.us](https://www.bram.us/2023/10/13/whats-new-in-css-2022-10-12-frontmania/)
 
 > Slides of the talk “What’s new in CSS” I gave at Frontmania
@@ -22,9 +27,9 @@ Yesterday I was in Utrecht to speak at [Frontmania](https://frontmania.con/). Th
 The talk I gave is a full-length talk of 45 minutes.
 
 > Things have been going hard for CSS the past few years, with many new features landing across browsers at a very fast pace.
-> 
+>
 > With this talk you’ll be up to speed on some of the recent additions to CSS and how they allow you to write cleaner, clearer, and more maintainable CSS. They might even allow you to remove some nasty CSS hacks or JS-based solutions that you’re currently relying on.
-> 
+>
 > And oh, time permitting we’ll also take a look into the future at what’s to come next …
 
 Because this talk gives you a rundown of all the new niceties, it hops around from topic to topic. Covered topics were:
