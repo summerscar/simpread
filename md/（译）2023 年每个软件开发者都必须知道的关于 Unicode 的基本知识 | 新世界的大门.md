@@ -1,3 +1,8 @@
+---
+title: （译）2023 年每个软件开发者都必须知道的关于 Unicode 的基本知识 | 新世界的大门
+date: 2023-11-08 13:04:18
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [blog.xinshijiededa.men](https://blog.xinshijiededa.men/unicode/)
 
 > 仍然不准找借口！
