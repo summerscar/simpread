@@ -1,3 +1,8 @@
+---
+title: 67 Weird Debugging Tricks Your Browser Doesn't Want You to Know | Alan Norbauer
+date: 2023-11-20 00:03:31
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [alan.norbauer.com](https://alan.norbauer.com/articles/browser-debugging-tricks)
 
 > Advanced browser parlor tricks
