@@ -1,3 +1,8 @@
+---
+title: Z-index · Bootstrap v5.0
+date: 2023-11-20 00:02:41
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [getbootstrap.com](https://getbootstrap.com/docs/5.0/layout/z-index/)
 
 > While not a part of Bootstrap’s grid system, z-indexes play an important part in how our components o......
