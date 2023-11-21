@@ -1,3 +1,8 @@
+---
+title: cube 格式的 LUT 滤镜也叫 ColorMapFilter 在 pixi 中应用 «  张鑫旭 - 鑫空间 - 鑫生活
+date: 2023-11-22 00:23:25
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [www.zhangxinxu.com](https://www.zhangxinxu.com/wordpress/2023/11/cube-lut-colormapfilter-pixijs/)
 
 > 滤镜效果大体分两类，一类是算法滤镜，另外一类则是颜色映射滤镜，本文就将介绍如何使用 pixi.js 在 WebGL 中应用颜色映射滤镜。
