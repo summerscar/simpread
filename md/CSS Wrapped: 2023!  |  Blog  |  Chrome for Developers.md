@@ -1,3 +1,8 @@
+---
+title: CSS Wrapped: 2023!  |  Blog  |  Chrome for Developers
+date: 2023-12-11 11:29:22
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [developer.chrome.com](https://developer.chrome.com/blog/css-wrapped-2023?hl=en)
 
 > 2023 was a huge year for CSS! Learn about what landed in Chrome and across the web platform this year......
