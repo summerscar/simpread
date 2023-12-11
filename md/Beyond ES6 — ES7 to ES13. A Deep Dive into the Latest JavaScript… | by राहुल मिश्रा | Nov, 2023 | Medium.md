@@ -1,3 +1,8 @@
+---
+title: Beyond ES6 — ES7 to ES13. A Deep Dive into the Latest JavaScript… | by राहुल मिश्रा | Nov, 2023 | Medium
+date: 2023-12-11 11:33:16
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [rahuulmiishra.medium.com](https://rahuulmiishra.medium.com/beyond-es6-es7-to-es13-3f98f6202fd2)
 
 > A Deep Dive into the Latest JavaScript Features (ES7 to ES13)
