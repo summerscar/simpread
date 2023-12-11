@@ -1,3 +1,8 @@
+---
+title: React Performance Optimization — SitePoint
+date: 2023-12-11 11:36:11
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [www.sitepoint.com](https://www.sitepoint.com/react-performance-optimization/)
 
 > Learn how to identify bottlenecks and use memoization, lazy loading, virtualization, and more to crea......
