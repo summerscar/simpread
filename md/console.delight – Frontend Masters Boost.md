@@ -1,3 +1,8 @@
+---
+title: console.delight – Frontend Masters Boost
+date: 2024-02-02 00:23:39
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [frontendmasters.com](https://frontendmasters.com/blog/console-delight/)
 
 > Everyone knows you can use console.log() to log text and variables to the console. Did you know you c......
