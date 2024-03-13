@@ -1,3 +1,8 @@
+---
+title: Web 终极拦截技巧（全是骚操作） | 风痕 · 術 & 思
+date: 2024-03-14 00:38:44
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [hughfenghen.github.io](https://hughfenghen.github.io/posts/2023/12/23/web-spy/)
 
 > 拦截的价值 > 计算机科学领域的任何问题都可以通过增加一个中间层来解决。
