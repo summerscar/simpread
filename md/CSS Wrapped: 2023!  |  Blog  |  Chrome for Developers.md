@@ -1,5 +1,5 @@
 ---
-title: CSS Wrapped: 2023!  |  Blog  |  Chrome for Developers
+title: CSS Wrapped 2023! |  Blog  |  Chrome for Developers
 date: 2023-12-11 11:29:22
 ---
 
@@ -68,9 +68,9 @@ What a year it has been! And so we’d like to end this milestone year celebrati
 Look out for the new Baseline badges next to the feature headers! [Learn more here.](https://web.dev/blog/baseline-definition-update)
 
 *   ![](https://developer.chrome.com/static/blog/css-wrapped-2023/image/baseline_new.svg) = Newly available in all stable versions of major browsers.
-    
+
 *   ![](https://developer.chrome.com/static/blog/css-wrapped-2023/image/baseline_no.svg) = Partial availability in browser engines.
-    
+
 
 ![](https://developer.chrome.com/static/blog/css-wrapped-2023/image/csswrapped_foundations.svg)
 
@@ -171,7 +171,7 @@ Before nesting, every selector needed to be explicitly declared, separately from
 ```
 dl {
   /* dt styles */
-  
+
   dt {
     /* dl dt styles */
   }
@@ -201,7 +201,7 @@ dl dd {
 
  <video src="" control></video>
 
- 
+
 
 Change the relaxed nesting selector to decide the winner of the race
 
@@ -226,7 +226,7 @@ CSS `subgrid` enables you to create more complex grids with better alignment bet
 
  <video src="" control></video>
 
- 
+
 
 Header, body and footers align to the dynamic sizes of their siblings.
 
@@ -272,7 +272,7 @@ This is where two new text wrapping techniques come in, one called `balance` and
 
  <video src="" control></video>
 
- 
+
 
 In the following demo you can compare by dragging the slider, the effects of `balance` and `pretty` on a heading and a paragraph. Try translating the demo into another language!
 
@@ -313,7 +313,7 @@ CSS and color can now: - Check if the users screen hardware is capable of wide g
 
  <video src="" control></video>
 
- 
+
 
 In the following demo you can compare by dragging the slider, the effects of `balance` and `pretty` on a heading and a paragraph. Try translating the demo into another language!
 
@@ -336,7 +336,7 @@ Mixing color is a classic task and in 2023 CSS can do it too. You can not only m
 
  <video src="" control></video>
 
- 
+
 
 Demo allows you to pick two colors with a color picker, the color space, and how much of each color should be dominant in the mix.
 
@@ -352,7 +352,7 @@ Relative color syntax (RCS) is a complementary method to `color-mix()` for creat
 
  <video src="" control></video>
 
- 
+
 
 Change the color, change the scenes. Each uses relative color syntax to create variants off the base color.
 
@@ -384,7 +384,7 @@ To use this feature, first set up containment on the element you are querying, a
 
 [@container Screencast](#container-screencast)[@container Demo](#container-demo)[More](#)
 
- <video src="" control></video> 
+ <video src="" control></video>
 
 Learn more about using [container queries](https://web.dev/blog/cq-stable).
 
@@ -436,7 +436,7 @@ Because `:has()` accepts a relative selector list as its argument, you can selec
 
  <video src="" control></video>
 
- 
+
 
 CSS `:has()` demo: Dock
 
@@ -461,7 +461,7 @@ Most of the devices you design for are likely to have a fast refresh rate. This 
 
  <video src="" control></video>
 
- 
+
 
 Simulate (by choosing a radio option) an update speed value and see how it affects the duck.
 
@@ -484,7 +484,7 @@ Learn how to [enable and disable JavaScript on a page for testing via Chrome Dev
 
 [Scripting Screencast](#scripting-screencast)[Scripting Demo](#scripting-demo)[More](#)
 
- <video src="" control></video> 
+ <video src="" control></video>
 
 Consider a theme switch on a website, the scripting media query can assist in making the switch work against the system preference since no JavaScript is available. Or consider a switch component—if JavaScript is available then the switch can be swiped with a gesture instead of just toggled on and off. Lots of great opportunities to upgrade UX if scripting is available while providing a meaningful foundation experience if scripting is disabled.
 
@@ -505,7 +505,7 @@ Non-opaque interfaces can cause headaches or be a visual struggle for various ty
 
 [Reduced Transparency Screencast](#reduced-transparency-screencast)[Reduced Transparency Demo](#reduced-transparency-demo)[More](#)
 
- <video src="" control></video> 
+ <video src="" control></video>
 
 In some cases, you can provide an alternative layout which doesn't have content overlaying other content. In other cases, the opacity of a color can be adjusted to be opaque or nearly opaque. The following blog post has more inspiring demos that adapt to the user preference, give them a look if you're curious about times when this media query is valuable.
 
@@ -537,7 +537,7 @@ At the core of the View Transitions API is the `document.startViewTranstion` fun
 
  <video src="" control></video>
 
- 
+
 
 View Transitions demo
 
@@ -560,7 +560,7 @@ Before `linear()`, which shipped in Chrome 113, it was impossible to create boun
 
  <video src="" control></video>
 
- 
+
 
 CSS `linear()` demo.
 
@@ -581,7 +581,7 @@ Many interfaces include scroll interactions, and sometimes the interface needs t
 
 [Scrollend Screencast](#scrollend-screencast)[Scrollend Demo](#scrollend-demo)[More](#)
 
- <video src="" control></video> 
+ <video src="" control></video>
 
 This was important for the browser to own because JavaScript cannot track a fingers presence on the screen during a scroll, the information is just simply not available. Chunks of inaccurate scroll end attempting code can now be deleted and replaced with a browser owned high precision event.
 
@@ -606,7 +606,7 @@ With a ScrollTimeline you can track the overall progress of a scroller, as demon
 
  <video src="" control></video>
 
- 
+
 
 CSS scroll-driven animations demo: scroll timeline
 
@@ -616,7 +616,7 @@ With a ViewTimeline you can track an element as it crosses the scrollport. This 
 
  <video src="" control></video>
 
- 
+
 
 CSS scroll-driven animations demo: view timeline
 
@@ -643,7 +643,7 @@ To allow the animated element to find a named scroll-timeline of a non-ancestor 
 
  <video src="" control></video>
 
- 
+
 
 CSS scroll-driven animations demo: deferred timeline attachment
 
@@ -662,7 +662,7 @@ Another new capability in 2023 is the ability to animate discrete animations, su
 
 [Discrete Anim. Screencast](#discrete-anim.-screencast)[Discrete Anim. Demo](#discrete-anim.-demo)[More](#)
 
- <video src="" control></video> 
+ <video src="" control></video>
 
 Learn more about [transitioning discrete animations](https://developer.chrome.com/blog/entry-exit-animations/#transitioning-discrete-animations).
 
@@ -681,7 +681,7 @@ The `@starting-style` CSS rule builds on new web capabilities for animating to a
 
 [@starting-style Screencast](#starting-style-screencast)[@starting-style Demo](#starting-style-demo)[More](#)
 
- <video src="" control></video> 
+ <video src="" control></video>
 
 Learn more about [@starting-style](https://developer.chrome.com/blog/entry-exit-animations/#the-starting-style-rule-for-entry-animations) and other entry animations.
 
@@ -700,7 +700,7 @@ The new CSS `overlay` property can be added to your transition to enable element
 
 [Overlay Screencast](#overlay-screencast)[Overlay Live Demo](#overlay-live-demo)[More](#)
 
- <video src="" control></video> 
+ <video src="" control></video>
 
 Learn more about [overlay](https://developer.chrome.com/blog/entry-exit-animations/#overlay-property) and other exit animations.
 
@@ -732,7 +732,7 @@ The Popover API helps you build elements which lay on top of the rest of the pag
 
 [Popover Screencast](#popover-screencast)[Popover Live Demo](#popover-live-demo)[More](#)
 
- <video src="" control></video> 
+ <video src="" control></video>
 
 ### [Horizontal rules in select](#hrselect)
 
@@ -761,7 +761,7 @@ With these new selectors, there's no longer a need to write stateful code to kee
 
 [:user-* Screencast](#:user--screencast)[:user-* Live Demo](#:user--live-demo)[More](#)
 
- <video src="" control></video> 
+ <video src="" control></video>
 
 Learn more about using [user-* form validation pseudo elements](https://web.dev/articles/user-valid-and-user-invalid-pseudo-classes).
 
