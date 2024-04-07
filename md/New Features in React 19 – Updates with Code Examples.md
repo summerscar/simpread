@@ -1,3 +1,8 @@
+---
+title: New Features in React 19 – Updates with Code Examples
+date: 2024-04-07 18:32:11
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [www.freecodecamp.org](https://www.freecodecamp.org/news/new-react-19-features/)
 
 > ReactJS is one of the most popular UI libraries in the front-end development world. And one of the re......
