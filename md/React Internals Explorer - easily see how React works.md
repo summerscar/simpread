@@ -1,3 +1,8 @@
+---
+title: React Internals Explorer - easily see how React works
+date: 2024-06-25 15:47:00
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [jser.dev](https://jser.dev/2024-05-11-introducing-rie/)
 
 > React Internals Explorer is a visualization tool to help you understand React internals easily.
