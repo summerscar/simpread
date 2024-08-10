@@ -1,3 +1,8 @@
+---
+title: 주니어 FE 개발자의 색상 추출 라이브러리 개발기
+date: 2024-08-11 07:24:30
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [tech.kakao.com](https://tech.kakao.com/posts/627)
 
 > 개요 안녕하세요, 카카오 FE플랫폼 조직에서 광고SDK 업무를 담당했던 이브입니다...
