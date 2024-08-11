@@ -1,3 +1,8 @@
+---
+title: Learn Suspense by Building a Suspense-Enabled Library :: Building Better Software Slower
+date: 2024-08-11 10:09:11
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [www.bbss.dev](https://www.bbss.dev/posts/react-learn-suspense/)
 
 > Suspense has been a feature in React since v16.6.0. Despite this, I haven’t seen much of it in action......
