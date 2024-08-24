@@ -1,3 +1,8 @@
+---
+title: Enhancing The New York Times Web Performance with React 18 | by Ilya Gurevich | NYT Open | NYT Open
+date: 2024-08-24 21:53:31
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [open.nytimes.com](https://open.nytimes.com/enhancing-the-new-york-times-web-performance-with-react-18-d6f91a7c5af8)
 
 > How upgrading to React 18 energized The New York Times website — and how we tackled some of the chall......
