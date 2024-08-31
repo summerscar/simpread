@@ -1,3 +1,8 @@
+---
+title: Implementing React from scratch
+date: 2024-08-31 18:23:44
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [www.rob.directory](https://www.rob.directory/blog/react-from-scratch)
 
 > A detailed explanation of the architecture I used to rebuild react
