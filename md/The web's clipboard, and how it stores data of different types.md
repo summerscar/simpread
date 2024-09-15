@@ -1,3 +1,8 @@
+---
+title: The web's clipboard, and how it stores data of different types
+date: 2024-09-15 20:34:45
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [alexharri.com](https://alexharri.com/blog/clipboard)
 
 > Exploring the web's clipboard APIs, their limitations, and their history.
