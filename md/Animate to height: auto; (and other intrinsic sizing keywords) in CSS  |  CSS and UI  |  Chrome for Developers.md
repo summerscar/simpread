@@ -1,3 +1,8 @@
+---
+title: Animate to height: auto; (and other intrinsic sizing keywords) in CSS  |  CSS and UI  |  Chrome for Developers
+date: 2024-09-21 20:22:28
+---
+
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [developer.chrome.com](https://developer.chrome.com/docs/css-ui/animate-to-height-auto/)
 
 *   [Home](https://developer.chrome.com/)
